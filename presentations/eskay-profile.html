@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Ears — Eskay Da Real</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyan: #00bbe4;
+            --cyan-glow: rgba(0, 187, 228, 0.15);
+            --teal: #2f6364;
+            --black: #080808;
+            --card-bg: #111114;
+            --card-border: rgba(255,255,255,0.08);
+            --text-primary: #f0f0f0;
+            --text-secondary: rgba(255,255,255,0.65);
+            --text-muted: rgba(255,255,255,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--black);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm;
+            margin: 0 auto;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,187,228,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 80% 70%, rgba(47,99,100,0.08) 0%, transparent 60%),
+                var(--black);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-logo {
+            width: 44px;
+        }
+
+        .header-text {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            font-weight: 500;
+        }
+
+        .header-right {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* Profile section */
+        .profile {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .dj-photo {
+            width: 220px;
+            height: 220px;
+            border-radius: 16px;
+            object-fit: cover;
+            object-position: center;
+            border: 2px solid rgba(0,187,228,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,187,228,0.08);
+        }
+
+        .dj-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 52px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .dj-tagline {
+            font-size: 13px;
+            color: var(--cyan);
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: -14px;
+        }
+
+        .dj-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .genre-tag {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(0,187,228,0.1);
+            color: var(--cyan);
+            border: 1px solid rgba(0,187,228,0.2);
+        }
+
+        .dj-bio {
+            max-width: 460px;
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 40px;
+            max-width: 460px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .detail-item {
+            padding: 12px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+        }
+
+        .detail-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .social-link {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .footer .cta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+            html, body {
+                background: var(--black) !important;
+                margin: 0;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                height: 297mm !important;
+                width: 210mm !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-left">
+                <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears" class="header-logo">
+                <span class="header-text">Artist Profile</span>
+            </div>
+            <span class="header-right">brightears.io</span>
+        </div>
+
+        <div class="profile">
+            <img src="../djs/images/eskay-photo1.jpg" alt="Eskay Da Real" class="dj-photo">
+
+            <h1 class="dj-name">Eskay Da Real</h1>
+            <p class="dj-tagline">15+ Years International Experience</p>
+
+            <div class="dj-genres">
+                <span class="genre-tag">Hip Hop & R&B</span>
+                <span class="genre-tag">Afro House</span>
+                <span class="genre-tag">Open Format</span>
+                <span class="genre-tag">Latin & Pop</span>
+            </div>
+
+            <p class="dj-bio">Eskay Da Real is a French DJ and producer with over 15 years behind the decks. Renowned for his signature "French Touch," he seamlessly blends Hip Hop, R&B, Afro House, and Latin rhythms. From headlining top Parisian clubs to energising Bangkok's most exclusive venues, Eskay brings urban style and international flair to every performance.</p>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Origin</div>
+                    <div class="detail-value">Paris, France</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Based In</div>
+                    <div class="detail-value">Bangkok, Thailand</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Best For</div>
+                    <div class="detail-value">Fashion events, trendy parties, urban nights</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Notable Venues</div>
+                    <div class="detail-value">Le Papillon Paris, Cocoa XO, Basement Club</div>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://instagram.com/eskaydareal" class="social-link">@eskaydareal</a>
+                <a href="https://youtube.com/@eskaydareal" class="social-link">YouTube</a>
+                <a href="https://tiktok.com/@eskaydareal" class="social-link">TikTok</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Curated by Bright Ears &middot; Bangkok</p>
+            <p class="cta">Contact us to book &middot; brightears.io</p>
+        </div>
+    </div>
+</body>
+</html>

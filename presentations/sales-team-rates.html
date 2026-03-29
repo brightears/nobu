@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Booking Info - Sales Team</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-cyan: #00bbe4;
+            --deep-teal: #2f6364;
+            --luxury-black: #0a0a0a;
+            --off-white: #f7f7f7;
+            --dark-gray: #333333;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: white;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 20mm 25mm;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--brand-cyan);
+            margin-bottom: 25px;
+        }
+
+        .header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--deep-teal);
+            margin-bottom: 5px;
+        }
+
+        .header-left p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        /* Confidential badge */
+        .confidential {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c44;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 22px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--deep-teal);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        th {
+            background: var(--deep-teal);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        tr:nth-child(odd) {
+            background: white;
+        }
+
+        td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .rate {
+            font-weight: 600;
+            color: var(--deep-teal);
+        }
+
+        .note {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .vat-note {
+            background: rgba(0, 187, 228, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--deep-teal);
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        /* List */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            font-size: 12px;
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--brand-cyan);
+            font-weight: bold;
+        }
+
+        /* Numbered list */
+        ol {
+            padding-left: 20px;
+        }
+
+        ol li {
+            font-size: 12px;
+            padding: 5px 0;
+        }
+
+        /* Contact box */
+        .contact-box {
+            background: linear-gradient(135deg, var(--luxury-black), #1a1a2e);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--brand-cyan);
+        }
+
+        .contact-box p {
+            font-size: 11px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3px;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 25mm;
+            right: 25mm;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: #aaa;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-left">
+                <h1>DJ Booking Info</h1>
+                <p>Private Event Rates & Booking Process</p>
+            </div>
+            <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears" class="logo">
+        </div>
+
+        <div class="confidential">
+            INTERNAL USE ONLY — Do Not Share with Clients
+        </div>
+
+        <div class="section">
+            <h2>Private Event Rates</h2>
+            <table>
+                <tr>
+                    <th>Duration</th>
+                    <th>Rate</th>
+                </tr>
+                <tr>
+                    <td>3 hours</td>
+                    <td class="rate">THB 6,000</td>
+                </tr>
+                <tr>
+                    <td>4 hours</td>
+                    <td class="rate">THB 8,000</td>
+                </tr>
+                <tr>
+                    <td>5 hours</td>
+                    <td class="rate">THB 10,000</td>
+                </tr>
+                <tr>
+                    <td>6 hours</td>
+                    <td class="rate">THB 12,000</td>
+                </tr>
+                <tr>
+                    <td>Additional hour</td>
+                    <td class="rate">THB 2,000/hr</td>
+                </tr>
+            </table>
+            <div class="vat-note">All rates are + 7% VAT</div>
+            <p class="note">Rates may vary for premium DJs (Scotty B, Izaar) or special occasions.</p>
+        </div>
+
+        <div class="section">
+            <h2>Lead Time to Book</h2>
+            <table>
+                <tr>
+                    <th>Notice</th>
+                    <th>Availability</th>
+                </tr>
+                <tr>
+                    <td><strong>1 week+</strong></td>
+                    <td>Best availability, preferred DJ guaranteed</td>
+                </tr>
+                <tr>
+                    <td><strong>3-5 days</strong></td>
+                    <td>Good availability</td>
+                </tr>
+                <tr>
+                    <td><strong>48-72 hours</strong></td>
+                    <td>Limited options, subject to DJ schedules</td>
+                </tr>
+                <tr>
+                    <td><strong>Same day</strong></td>
+                    <td>Emergency only, not guaranteed</td>
+                </tr>
+            </table>
+            <p class="note">Recommended: Minimum 1 week advance notice for private events.</p>
+        </div>
+
+        <div class="section">
+            <h2>What's Included</h2>
+            <ul>
+                <li>Professional DJ for specified duration</li>
+                <li>All music equipment handled by venue (NOBU/Le Du Kaan)</li>
+                <li>Consultation on music style/genre preferences</li>
+                <li>Song requests during event (within DJ's capabilities)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Booking Process</h2>
+            <ol>
+                <li>Client confirms date, time, and duration</li>
+                <li>Sales team checks availability with Bright Ears</li>
+                <li>Bright Ears confirms DJ and sends invoice</li>
+                <li>Payment: 50% deposit to confirm, 50% on event day</li>
+                <li>DJ arrives 30 minutes before start time</li>
+            </ol>
+        </div>
+
+        <div class="contact-box">
+            <h3>Contact for Bookings</h3>
+            <p><strong>Norbert Platzer</strong> — Bright Ears</p>
+            <p>Via NOBU/Le Du Kaan management</p>
+        </div>
+
+        <div class="footer">
+            <span>Bright Ears Co., Ltd.</span>
+            <span>Last updated: February 2, 2026</span>
+        </div>
+    </div>
+</body>
+</html>

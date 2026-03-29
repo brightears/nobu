@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly DJ Schedule - Bright Ears</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cyan: #00bbe4;
+      --teal: #2f6364;
+      --lavender: #d59ec9;
+      --black: #0a0a0a;
+      --white: #ffffff;
+    }
+
+    @page {
+      size: 1080px 1920px;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .poster {
+      width: 1080px;
+      height: 1920px;
+      background: linear-gradient(180deg, var(--black) 0%, #0d1a1a 50%, #1a1a2e 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 50px 40px;
+    }
+
+    /* Background decorations */
+    .poster::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,187,228,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .poster::after {
+      content: '';
+      position: absolute;
+      bottom: -200px;
+      left: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(213,158,201,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--cyan);
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Venue labels */
+    .venue-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
+
+    .venue-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .venue-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .venue-dot.nobu { background: var(--cyan); }
+    .venue-dot.early { background: var(--teal); }
+    .venue-dot.late { background: var(--lavender); }
+
+    .venue-badge.nobu { color: var(--cyan); }
+    .venue-badge.early { color: #5a9a9c; }
+    .venue-badge.late { color: var(--lavender); }
+
+    /* Days grid */
+    .days-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .day-row {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 18px 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .day-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .djs-row {
+      display: flex;
+      gap: 15px;
+      flex: 1;
+      justify-content: flex-start;
+    }
+
+    .dj-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.3);
+      padding: 8px 16px 8px 8px;
+      border-radius: 50px;
+      border: 2px solid transparent;
+    }
+
+    .dj-item.nobu { border-color: var(--cyan); }
+    .dj-item.early { border-color: var(--teal); }
+    .dj-item.late { border-color: var(--lavender); }
+
+    .dj-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .dj-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dj-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .dj-venue {
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dj-venue.nobu { color: var(--cyan); }
+    .dj-venue.early { color: #5a9a9c; }
+    .dj-venue.late { color: var(--lavender); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .venues-info {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+    }
+
+    .times {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 15px;
+    }
+
+    .website {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 2px;
+    }
+
+    @media print {
+      .poster {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="content">
+
+    <!-- Header -->
+    <div class="header">
+      <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears" class="logo">
+      <h1 class="title">Weekly DJ Lineup</h1>
+      <p class="subtitle">Le Du Kaan & NOBU Bangkok</p>
+    </div>
+
+    <!-- Venue Legend -->
+    <div class="venue-row">
+      <div class="venue-badge nobu">
+        <div class="venue-dot nobu"></div>
+        <span>NOBU</span>
+      </div>
+      <div class="venue-badge early">
+        <div class="venue-dot early"></div>
+        <span>LDK Early</span>
+      </div>
+      <div class="venue-badge late">
+        <div class="venue-dot late"></div>
+        <span>LDK Late</span>
+      </div>
+    </div>
+
+    <!-- Days -->
+    <div class="days-container">
+
+      <!-- Monday -->
+      <div class="day-row">
+        <div class="day-label">Monday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/benji-photo1.jpg" alt="Benji" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Benji</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/rabbitdisco-photo1.jpg" alt="RabbitDisco" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">RabbitDisco</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/pound-photo1.jpg" alt="DJ Pound" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">DJ Pound</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tuesday -->
+      <div class="day-row">
+        <div class="day-label">Tuesday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/benji-photo1.jpg" alt="Benji" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Benji</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/tomfkg-photo1.jpg" alt="Tom FKG" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Tom FKG</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/yuitruluv-photo1.jpg" alt="Yui Truluv" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Yui Truluv</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wednesday -->
+      <div class="day-row">
+        <div class="day-label">Wednesday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/izaar-photo1.jpg" alt="Izaar" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Izaar</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/enjoy-photo2.jpg" alt="DJ Enjoy" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">DJ Enjoy</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/manymaur-photo1.jpg" alt="Manymaur" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Manymaur</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thursday -->
+      <div class="day-row">
+        <div class="day-label">Thursday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/linze-photo1.jpg" alt="Linze" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Linze</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/furry-photo1.png" alt="DJ Furry" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">DJ Furry</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/yuitruluv-photo1.jpg" alt="Yui Truluv" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Yui Truluv</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Friday -->
+      <div class="day-row">
+        <div class="day-label">Friday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/mint-photo1.png" alt="DJ Mint" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">DJ Mint</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/pound-photo1.jpg" alt="DJ Pound" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">DJ Pound</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/ufo-photo1.jpg" alt="UFO" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">UFO</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saturday -->
+      <div class="day-row">
+        <div class="day-label">Saturday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/vita-photo1.jpg" alt="Vita" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Vita</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/justinmills-photo1.jpg" alt="Justin Mills" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Justin Mills</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/scottyb-photo1.jpg" alt="Scotty B" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Scotty B</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sunday -->
+      <div class="day-row">
+        <div class="day-label">Sunday</div>
+        <div class="djs-row">
+          <div class="dj-item nobu">
+            <img src="../djs/images/ufo-photo1.jpg" alt="UFO" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">UFO</span>
+              <span class="dj-venue nobu">NOBU</span>
+            </div>
+          </div>
+          <div class="dj-item early">
+            <img src="../djs/images/tomfkg-photo1.jpg" alt="Tom FKG" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Tom FKG</span>
+              <span class="dj-venue early">LDK Early</span>
+            </div>
+          </div>
+          <div class="dj-item late">
+            <img src="../djs/images/yuitruluv-photo1.jpg" alt="Yui Truluv" class="dj-photo">
+            <div class="dj-info">
+              <span class="dj-name">Yui Truluv</span>
+              <span class="dj-venue late">LDK Late</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="venues-info">NOBU Bangkok & Le Du Kaan at Park Hyatt Bangkok</p>
+      <p class="times">NOBU 20:00-24:00 | LDK Early 18:00-21:00 | LDK Late 21:00-24:00</p>
+      <p class="website">BRIGHTEARS.IO</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

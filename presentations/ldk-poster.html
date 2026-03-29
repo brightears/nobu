@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Le Du Kaan DJ Lineup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page {
+      size: 1080px 1350px;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      width: 1080px;
+      height: 1350px;
+      background: linear-gradient(180deg, #c4956a 0%, #8b6b4a 35%, #3a3028 50%, #1a1a1a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dj-collage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 650px;
+    }
+
+    .dj-photo {
+      position: absolute;
+      object-fit: contain;
+    }
+
+    /* Row 1 */
+    .dj-1 { width: 200px; top: 20px; left: 30px; }
+    .dj-2 { width: 180px; top: 40px; left: 230px; }
+    .dj-3 { width: 220px; top: 10px; left: 420px; }
+    .dj-4 { width: 170px; top: 50px; left: 650px; }
+    .dj-5 { width: 180px; top: 30px; left: 850px; }
+
+    /* Row 2 */
+    .dj-6 { width: 190px; top: 230px; left: 60px; }
+    .dj-7 { width: 210px; top: 210px; left: 280px; }
+    .dj-8 { width: 230px; top: 200px; left: 500px; }
+    .dj-9 { width: 180px; top: 220px; left: 750px; }
+
+    /* Row 3 */
+    .dj-10 { width: 200px; top: 420px; left: 180px; }
+    .dj-11 { width: 190px; top: 430px; left: 450px; }
+
+    .content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 700px;
+      padding: 40px 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      margin-bottom: 35px;
+      letter-spacing: 2px;
+    }
+
+    .schedule {
+      text-align: center;
+    }
+
+    .schedule-line {
+      font-size: 22px;
+      font-weight: 400;
+      color: white;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .day {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .diamond {
+      color: #c4956a;
+      margin: 0 10px;
+    }
+
+    .separator {
+      color: rgba(255,255,255,0.5);
+      margin: 0 8px;
+    }
+
+    .footer {
+      margin-top: 35px;
+      text-align: center;
+    }
+
+    .times {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+    }
+
+    .month {
+      font-size: 16px;
+      font-weight: 500;
+      color: #c4956a;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dj-collage">
+  <!-- Row 1: 5 DJs -->
+  <img src="../djs/images_cutouts/rabbitdisco-photo1.png" class="dj-photo dj-1" alt="RabbitDisco">
+  <img src="../djs/images_cutouts/tomfkg-photo1.png" class="dj-photo dj-2" alt="Tom FKG">
+  <img src="../djs/images_cutouts/enjoy-photo2.png" class="dj-photo dj-3" alt="DJ Enjoy">
+  <img src="../djs/images_cutouts/mizuyo-photo1.png" class="dj-photo dj-4" alt="Mizuyo">
+  <img src="../djs/images_cutouts/furry-photo1.png" class="dj-photo dj-5" alt="DJ Furry">
+
+  <!-- Row 2: 4 DJs -->
+  <img src="../djs/images_cutouts/justinmills-photo1.png" class="dj-photo dj-6" alt="Justin Mills">
+  <img src="../djs/images_cutouts/pound-photo1.png" class="dj-photo dj-7" alt="DJ Pound">
+  <img src="../djs/images_cutouts/yuitruluv-photo1.png" class="dj-photo dj-8" alt="Yui Truluv">
+  <img src="../djs/images_cutouts/manymaur-photo1.png" class="dj-photo dj-9" alt="Manymaur">
+
+  <!-- Row 3: 2 DJs -->
+  <img src="../djs/images_cutouts/scottyb-photo1.png" class="dj-photo dj-10" alt="Scotty B">
+  <img src="../djs/images_cutouts/ufo-photo1.png" class="dj-photo dj-11" alt="UFO">
+</div>
+
+<div class="content">
+  <h1 class="title">DJ LINEUP</h1>
+
+  <div class="schedule">
+    <div class="schedule-line">
+      <span class="day">Mondays</span><span class="diamond">✦</span>RabbitDisco<span class="separator">|</span>DJ Pound
+    </div>
+    <div class="schedule-line">
+      <span class="day">Tuesdays</span><span class="diamond">✦</span>Tom FKG<span class="separator">|</span>Yui Truluv
+    </div>
+    <div class="schedule-line">
+      <span class="day">Wednesdays</span><span class="diamond">✦</span>DJ Enjoy<span class="separator">|</span>Manymaur
+    </div>
+    <div class="schedule-line">
+      <span class="day">Thursdays</span><span class="diamond">✦</span>DJ Furry<span class="separator">|</span>Yui Truluv
+    </div>
+    <div class="schedule-line">
+      <span class="day">Fridays</span><span class="diamond">✦</span>DJ Pound<span class="separator">|</span>UFO
+    </div>
+    <div class="schedule-line">
+      <span class="day">Saturdays</span><span class="diamond">✦</span>Justin Mills<span class="separator">|</span>Scotty B
+    </div>
+    <div class="schedule-line">
+      <span class="day">Sundays</span><span class="diamond">✦</span>Tom FKG<span class="separator">|</span>Yui Truluv
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="times">Early 18:00-21:00 | Late 21:00-24:00</div>
+    <div class="month">February 2026</div>
+  </div>
+</div>
+
+</body>
+</html>

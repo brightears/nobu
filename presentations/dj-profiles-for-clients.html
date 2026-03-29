@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Ears — DJ Profiles for Private Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyan: #00bbe4;
+            --cyan-glow: rgba(0, 187, 228, 0.15);
+            --teal: #2f6364;
+            --black: #080808;
+            --card-bg: #111114;
+            --card-border: rgba(255,255,255,0.08);
+            --text-primary: #f0f0f0;
+            --text-secondary: rgba(255,255,255,0.65);
+            --text-muted: rgba(255,255,255,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--black);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* Page container */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm;
+            margin: 0 auto;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            page-break-after: always;
+            break-after: page;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Cover page */
+        .cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,187,228,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 20% 80%, rgba(47,99,100,0.1) 0%, transparent 60%),
+                var(--black);
+        }
+
+        .cover-logo {
+            width: 120px;
+            margin-bottom: 40px;
+        }
+
+        .cover-eyebrow {
+            font-size: 12px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .cover h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 300;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .cover h1 em {
+            font-style: italic;
+            color: var(--cyan);
+        }
+
+        .cover-tagline {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 400px;
+            font-weight: 300;
+        }
+
+        .cover-line {
+            width: 60px;
+            height: 1px;
+            background: var(--cyan);
+            margin: 50px auto 0;
+        }
+
+        /* DJ Spread - 2 DJs per page */
+        .dj-spread {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            gap: 15mm;
+        }
+
+        /* DJ Card */
+        .dj-card {
+            display: flex;
+            gap: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            flex: 1;
+            max-height: 115mm;
+        }
+
+        .dj-photo {
+            width: 160px;
+            height: 160px;
+            min-width: 160px;
+            border-radius: 12px;
+            object-fit: cover;
+            object-position: top center;
+            border: 2px solid rgba(0,187,228,0.3);
+        }
+
+        .dj-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .dj-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .dj-experience {
+            font-size: 12px;
+            color: var(--cyan);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .dj-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .genre-tag {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: rgba(0,187,228,0.1);
+            color: var(--cyan);
+            border: 1px solid rgba(0,187,228,0.2);
+        }
+
+        .dj-bio {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .dj-venues {
+            font-size: 13px;
+            color: var(--text-muted);
+            padding-left: 14px;
+            border-left: 2px solid var(--teal);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .dj-venues strong {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .dj-social {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 5px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--cyan);
+            border-color: rgba(0,187,228,0.3);
+        }
+
+        /* Page header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .page-number {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        /* Contact page */
+        .contact {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,187,228,0.06) 0%, transparent 70%),
+                var(--black);
+        }
+
+        .contact h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .contact h2 em {
+            font-style: italic;
+            color: var(--cyan);
+        }
+
+        .contact p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .contact-cta {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 16px 48px;
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            border-radius: 100px;
+        }
+
+        .contact-footer {
+            position: absolute;
+            bottom: 20mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .contact-footer img {
+            width: 80px;
+            opacity: 0.6;
+        }
+
+        .contact-footer p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        /* Print styles */
+        @media print {
+            html, body {
+                background: var(--black) !important;
+                margin: 0;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                height: 297mm !important;
+                width: 210mm !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+            }
+            .page:last-child {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+            .dj-card {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1: Cover -->
+    <div class="page cover">
+        <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears" class="cover-logo">
+        <p class="cover-eyebrow">Bright Ears Presents</p>
+        <h1>DJ Profiles for<br><em>Private Events</em></h1>
+        <p class="cover-tagline">Curated talent for Bangkok's finest venues and exclusive gatherings</p>
+        <div class="cover-line"></div>
+    </div>
+
+    <!-- Page 2: Manymaur + Izaar -->
+    <div class="page">
+        <div class="page-header">
+            <span class="page-title">Bright Ears — DJ Profiles</span>
+            <span class="page-number">02 / 08</span>
+        </div>
+        <div class="dj-spread">
+            <article class="dj-card">
+                <img src="../djs/images/manymaur-photo1.jpg" alt="Manymaur" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Manymaur</h3>
+                    <p class="dj-experience">Elegant Dinner Parties</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Corporate</span>
+                        <span class="genre-tag">Dinners</span>
+                        <span class="genre-tag">Cocktails</span>
+                    </div>
+                    <p class="dj-bio">Creates sophisticated ambiance for upscale gatherings. Perfect for corporate dinners, milestone celebrations, and refined cocktail evenings.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Banyan Tree, Centara Grand, Hotel Indigo, Hilton</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/manymaur" class="social-link">@manymaur</a>
+                    </div>
+                </div>
+            </article>
+            <article class="dj-card">
+                <img src="../djs/images/izaar-photo1.jpg" alt="Izaar" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Izaar</h3>
+                    <p class="dj-experience">Luxury Events & Galas</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Weddings</span>
+                        <span class="genre-tag">Galas</span>
+                        <span class="genre-tag">Anniversaries</span>
+                    </div>
+                    <p class="dj-bio">Award-winning DJ who sets the tone at Bangkok's finest venues. Ideal for weddings, anniversaries, and elegant celebrations.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Sofitel Bangkok, Westin Grand, Octave Marriott</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/djizaar" class="social-link">@djizaar</a>
+                        <a href="https://soundcloud.com/djizaar" class="social-link">Soundcloud</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Page 3: UFO + Benji -->
+    <div class="page">
+        <div class="page-header">
+            <span class="page-title">Bright Ears — DJ Profiles</span>
+            <span class="page-number">03 / 08</span>
+        </div>
+        <div class="dj-spread">
+            <article class="dj-card">
+                <img src="../djs/images/ufo-photo1.jpg" alt="UFO" class="dj-photo" style="object-position: center;">
+                <div class="dj-info">
+                    <h3 class="dj-name">UFO</h3>
+                    <p class="dj-experience">Rooftop & Sunset Events</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Rooftops</span>
+                        <span class="genre-tag">Sunset Events</span>
+                        <span class="genre-tag">Lounges</span>
+                    </div>
+                    <p class="dj-bio">Brings a relaxed, classy vibe with smooth grooves. Perfect for sunset cocktails, rooftop parties, and intimate gatherings.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Sirocco Lebua, SO Bangkok, CRU Champagne Bar</p>
+                    <div class="dj-social">
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </article>
+            <article class="dj-card">
+                <img src="../djs/images/benji-photo1.jpg" alt="Benji" class="dj-photo" style="object-position: center;">
+                <div class="dj-info">
+                    <h3 class="dj-name">Benji</h3>
+                    <p class="dj-experience">Stylish Lounges & Dinners</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Launches</span>
+                        <span class="genre-tag">Boutique Events</span>
+                        <span class="genre-tag">Dinners</span>
+                    </div>
+                    <p class="dj-bio">Blends familiar songs with fresh sounds. Great for fashionable crowds, product launches, and boutique events.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Tribe Beach Club, Escape Bangkok</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/djbenjibkk" class="social-link">@djbenjibkk</a>
+                        <a href="https://mixcloud.com/buabenchawan9" class="social-link">Mixcloud</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Page 4: Scotty B + DJ Mint -->
+    <div class="page">
+        <div class="page-header">
+            <span class="page-title">Bright Ears — DJ Profiles</span>
+            <span class="page-number">04 / 08</span>
+        </div>
+        <div class="dj-spread">
+            <article class="dj-card">
+                <img src="../djs/images/scottyb-photo1.jpg" alt="Scotty B" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Scotty B</h3>
+                    <p class="dj-experience">Corporate & VIP Events</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Corporate</span>
+                        <span class="genre-tag">VIP</span>
+                        <span class="genre-tag">Brand Events</span>
+                    </div>
+                    <p class="dj-bio">International experience at world-class venues including Ministry of Sound and W Hotels. Ideal for high-profile corporate events, brand activations, and luxury celebrations.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Ministry of Sound, Es Paradis Ibiza, W Hotel Beijing</p>
+                    <div class="dj-social">
+                        <a href="https://mixcloud.com/DJ_SCOTTYB" class="social-link">Mixcloud</a>
+                    </div>
+                </div>
+            </article>
+            <article class="dj-card">
+                <img src="../djs/images/mint-photo1.png" alt="DJ Mint" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">DJ Mint</h3>
+                    <p class="dj-experience">Hotel Events & Receptions</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Hotels</span>
+                        <span class="genre-tag">Receptions</span>
+                        <span class="genre-tag">Networking</span>
+                    </div>
+                    <p class="dj-bio">Experienced across Bangkok's premium hotels. Perfect for welcome receptions, networking events, and sophisticated parties.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Blue Sky Centara Grand, Pullman King Power, Amari</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/Mint_chanakan38" class="social-link">@Mint_chanakan38</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Page 5: RabbitDisco + Vita -->
+    <div class="page">
+        <div class="page-header">
+            <span class="page-title">Bright Ears — DJ Profiles</span>
+            <span class="page-number">05 / 08</span>
+        </div>
+        <div class="dj-spread">
+            <article class="dj-card">
+                <img src="../djs/images/rabbitdisco-photo1.jpg" alt="RabbitDisco" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">RabbitDisco</h3>
+                    <p class="dj-experience">Fun & Energetic Parties</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Birthdays</span>
+                        <span class="genre-tag">Celebrations</span>
+                        <span class="genre-tag">Parties</span>
+                    </div>
+                    <p class="dj-bio">Brings retro-inspired energy that gets people dancing. Great for birthday parties, celebrations, and lively gatherings.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Wonderfruit Festival, Kolour, Escape Bangkok</p>
+                    <div class="dj-social">
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </article>
+            <article class="dj-card">
+                <img src="../djs/images/vita-photo1.jpg" alt="Vita" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Vita</h3>
+                    <p class="dj-experience">Versatile All-Rounder</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Flexible</span>
+                        <span class="genre-tag">Any Event</span>
+                    </div>
+                    <p class="dj-bio">Adapts to any crowd - from elegant dinners to dance parties. Perfect when you want flexibility and guaranteed good vibes.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> SO/ Bangkok, SEEN Restaurant Bar, Brewski Rooftop</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/Deejayvita" class="social-link">@Deejayvita</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Page 6: Mizuyo + Eskay -->
+    <div class="page">
+        <div class="page-header">
+            <span class="page-title">Bright Ears — DJ Profiles</span>
+            <span class="page-number">06 / 08</span>
+        </div>
+        <div class="dj-spread">
+            <article class="dj-card">
+                <img src="../djs/images/mizuyo-photo1.jpg" alt="Mizuyo" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Mizuyo</h3>
+                    <p class="dj-experience">World Music & Cultural Events</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">International</span>
+                        <span class="genre-tag">Cultural</span>
+                        <span class="genre-tag">Eclectic</span>
+                    </div>
+                    <p class="dj-bio">Unique global sound blending funk, Latin, and disco. Ideal for international gatherings, cultural celebrations, and eclectic events.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Big Mountain Festival, Park Hyatt, Sofitel</p>
+                    <div class="dj-social">
+                        <a href="https://www.djmizuyo.com" class="social-link">djmizuyo.com</a>
+                    </div>
+                </div>
+            </article>
+            <article class="dj-card">
+                <img src="../djs/images/eskay-photo1.jpg" alt="Eskay Da Real" class="dj-photo" style="object-position: center;">
+                <div class="dj-info">
+                    <h3 class="dj-name">Eskay Da Real</h3>
+                    <p class="dj-experience">Urban & Trendy Parties</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Fashion</span>
+                        <span class="genre-tag">Urban</span>
+                        <span class="genre-tag">Modern</span>
+                    </div>
+                    <p class="dj-bio">Brings hip hop and R&B energy with style. Perfect for younger crowds, fashion events, and modern celebrations.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Cocoa XO Bangkok, Le Papillon Paris, Basement Club</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/eskaydareal" class="social-link">@eskaydareal</a>
+                        <a href="https://youtube.com/@eskaydareal" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Page 7: Yui Truluv + Linze -->
+    <div class="page">
+        <div class="page-header">
+            <span class="page-title">Bright Ears — DJ Profiles</span>
+            <span class="page-number">07 / 08</span>
+        </div>
+        <div class="dj-spread">
+            <article class="dj-card">
+                <img src="../djs/images/yuitruluv-photo1.jpg" alt="Yui Truluv" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Yui Truluv</h3>
+                    <p class="dj-experience">Private Parties & Weddings</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Weddings</span>
+                        <span class="genre-tag">Birthdays</span>
+                        <span class="genre-tag">Family</span>
+                    </div>
+                    <p class="dj-bio">Creates feel-good vibes with crowd favorites. Ideal for weddings, birthdays, and family celebrations.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> Krabi Music Festival, Sofitel, Hilton, private parties</p>
+                    <div class="dj-social">
+                        <a href="https://instagram.com/yuitruluv" class="social-link">@yuitruluv</a>
+                        <a href="https://mixcloud.com/yuitruluv" class="social-link">Mixcloud</a>
+                    </div>
+                </div>
+            </article>
+            <article class="dj-card">
+                <img src="../djs/images/linze-photo1.jpg" alt="Linze" class="dj-photo">
+                <div class="dj-info">
+                    <h3 class="dj-name">Linze</h3>
+                    <p class="dj-experience">Pop & Crowd Pleasers</p>
+                    <div class="dj-genres">
+                        <span class="genre-tag">Company Parties</span>
+                        <span class="genre-tag">Mixed Ages</span>
+                        <span class="genre-tag">Fun</span>
+                    </div>
+                    <p class="dj-bio">Plays the hits everyone knows and loves. Great for mixed-age events, company parties, and fun celebrations.</p>
+                    <p class="dj-venues"><strong>Experience:</strong> The Back, Brick Bar, Club 24, Bangkok venues</p>
+                    <div class="dj-social">
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Page 8: Back Cover -->
+    <div class="page contact">
+        <h2>Find Your <em>Perfect DJ</em></h2>
+        <p>Premium entertainment for private events, corporate gatherings, and special celebrations.</p>
+        <p style="margin-top: 30px; font-size: 14px;">Speak with your NOBU or Le Du Kaan representative to book.</p>
+        <div class="contact-footer">
+            <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears">
+            <p>Curated by Bright Ears &middot; Bangkok</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ Roster - Bright Ears</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cyan: #00bbe4;
+      --teal: #2f6364;
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --off-white: #f7f7f7;
+      --gray: #333333;
+      --lavender: #d59ec9;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    @page {
+      size: 1280px 720px;
+      margin: 0;
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background: linear-gradient(135deg, var(--black) 0%, #1a1a2e 50%, var(--teal) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0,187,228,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .slide::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(47,99,100,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--cyan);
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 24px;
+      color: var(--cyan);
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-top: 25px;
+    }
+
+    .logo {
+      width: 130px;
+      margin-bottom: 40px;
+    }
+
+    .logo-small {
+      position: absolute;
+      bottom: 25px;
+      right: 40px;
+      width: 50px;
+      opacity: 0.8;
+    }
+
+    /* Venue Slide */
+    .venue-slide .content {
+      align-items: flex-start;
+      padding: 50px 80px;
+    }
+
+    .venue-info {
+      display: flex;
+      gap: 40px;
+      margin-top: 25px;
+    }
+
+    .venue-detail {
+      background: rgba(255,255,255,0.05);
+      padding: 20px 35px;
+      border-radius: 15px;
+      border: 1px solid rgba(0,187,228,0.3);
+    }
+
+    .venue-detail-label {
+      font-size: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .venue-detail-value {
+      font-size: 18px;
+      color: var(--white);
+    }
+
+    /* DJ Card Slide */
+    .dj-slide {
+      background: linear-gradient(135deg, var(--black) 0%, #1a1a2e 100%);
+    }
+
+    .dj-slide .content {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: stretch;
+      padding: 0;
+    }
+
+    .dj-photo-container {
+      width: 50%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dj-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .dj-photo-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent 60%, var(--black) 100%);
+    }
+
+    .dj-info {
+      width: 50%;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .dj-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .dj-genres {
+      font-size: 16px;
+      color: var(--cyan);
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .dj-bio {
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.9);
+      max-width: 500px;
+    }
+
+    .dj-venue-tag {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      background: var(--cyan);
+      color: var(--black);
+      padding: 10px 25px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 50px;
+    }
+
+    /* Summary Slide */
+    .summary-table {
+      width: 80%;
+      margin-top: 40px;
+      border-collapse: collapse;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      padding: 18px 35px;
+      text-align: left;
+      font-size: 18px;
+    }
+
+    .summary-table th {
+      color: var(--cyan);
+      font-weight: 600;
+      border-bottom: 2px solid rgba(0,187,228,0.3);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 14px;
+    }
+
+    .summary-table td {
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .summary-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .total-box {
+      margin-top: 40px;
+      background: rgba(0,187,228,0.1);
+      border: 2px solid var(--cyan);
+      padding: 25px 50px;
+      border-radius: 15px;
+      display: flex;
+      gap: 60px;
+    }
+
+    .total-item {
+      text-align: center;
+    }
+
+    .total-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .total-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+
+    /* Contact Slide */
+    .contact-info {
+      margin-top: 40px;
+    }
+
+    .contact-item {
+      font-size: 22px;
+      color: rgba(255,255,255,0.9);
+      margin: 15px 0;
+    }
+
+    .contact-highlight {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    @media print {
+      .slide {
+        page-break-after: always;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Cover -->
+<div class="slide">
+  <div class="content">
+    <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears" class="logo">
+    <h1>DJ Introduction</h1>
+    <p class="subtitle">Le Du Kaan & NOBU</p>
+  </div>
+</div>
+
+<!-- Slide 2: NOBU Intro -->
+<div class="slide venue-slide">
+  <div class="content">
+    <h2>NOBU</h2>
+    <h3>Cool, Sophisticated, Elegant</h3>
+    <div class="venue-info">
+      <div class="venue-detail">
+        <div class="venue-detail-label">Hours</div>
+        <div class="venue-detail-value">20:00 - 24:00</div>
+      </div>
+      <div class="venue-detail">
+        <div class="venue-detail-label">Music Direction</div>
+        <div class="venue-detail-value">Afro House, Organic House, Deep House</div>
+      </div>
+      <div class="venue-detail">
+        <div class="venue-detail-label">DJs Available</div>
+        <div class="venue-detail-value">7 Artists</div>
+      </div>
+    </div>
+  </div>
+  <img src="../branding/BE_Logo_Transparent.png" alt="" class="logo-small">
+</div>
+
+<!-- DJ: RabbitDisco -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/rabbitdisco-photo1.jpg" alt="RabbitDisco" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">RabbitDisco</h2>
+      <p class="dj-genres">Nu Disco / Indie Dance / House / Deep House</p>
+      <p class="dj-bio">Veteran DJ with 10+ years experience at premier venues and festivals including Wonderfruit, Kolour, and Disco Diaries. International experience in Japan. Known for blending retro and modern vibes into disco-infused sets.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- DJ: Benji -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/benji-photo1.jpg" alt="Benji" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Benji</h2>
+      <p class="dj-genres">Afro House / Organic House / Soulful House</p>
+      <p class="dj-bio">Afro and Organic House specialist known for weaving organic house remixes of familiar tracks into sophisticated sets. Regular performer at Tribe Beach Club and Escape Bangkok. Creates accessible yet refined sounds perfect for upscale dining.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- DJ: Izaar -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/izaar-photo1.jpg" alt="Izaar" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Izaar</h2>
+      <p class="dj-genres">Deep House / Soulful House / Chill House / Lounge</p>
+      <p class="dj-bio">Award-winning DJ with 16 years experience at Bangkok's premier venues including Sofitel, Westin Grand, and Banyan Tree. International performances across Korea, Singapore, Vietnam, and China. Pioneer Thailand Top 5 Lady DJ.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- DJ: Linze -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/linze-photo1.jpg" alt="Linze" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Linze</h2>
+      <p class="dj-genres">International Pop / Open Format / Dance</p>
+      <p class="dj-bio">Open format DJ specializing in trendy international pop. Known for crowd interaction and reading the room to match guest profiles. Versatile style shifting from feel-good vibes to high-energy sets.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- DJ: UFO -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/ufo-photo1.jpg" alt="UFO" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">UFO</h2>
+      <p class="dj-genres">Afro House / Organic House / Soulful House / Jazz House</p>
+      <p class="dj-bio">Classy DJ bringing Jazzy House, Soulful Funk, and Afro rhythms to the dance floor. Founder of "We Go Deep" rooftop parties. Performed at Sirocco Lebua, SO Bangkok, and CRU.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- DJ: Mint -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/mint-photo1.png" alt="DJ Mint" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">DJ Mint</h2>
+      <p class="dj-genres">Nu Disco / Tech House / Afro House / Melodic House</p>
+      <p class="dj-bio">Dynamic blend of house genres with live remix capabilities. Established across Bangkok's premium hotel circuit including Centara Grand, Pullman King Power, and Amari Watergate. Known for sophisticated sets tailored to discerning audiences.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- DJ: Vita -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/vita-photo1.jpg" alt="Vita" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Vita</h2>
+      <p class="dj-genres">Afro House / Deep House / Commercial / Open Format</p>
+      <p class="dj-bio">Versatile DJ with residencies at SO/ Bangkok and SEEN Restaurant Bar. Equally comfortable with sophisticated house sets and high-energy commercial pop. Experience at luxury hotels and top nightclubs including Levels and Siam Yacht Club.</p>
+    </div>
+    <span class="dj-venue-tag">NOBU</span>
+  </div>
+</div>
+
+<!-- Slide: Le Du Kaan Early Intro -->
+<div class="slide venue-slide">
+  <div class="content">
+    <h2>Le Du Kaan</h2>
+    <h3>Early Slot — Fun, Upbeat, Indie</h3>
+    <div class="venue-info">
+      <div class="venue-detail">
+        <div class="venue-detail-label">Hours</div>
+        <div class="venue-detail-value">18:00 - 21:00</div>
+      </div>
+      <div class="venue-detail">
+        <div class="venue-detail-label">Music Direction</div>
+        <div class="venue-detail-value">House, Indie Dance, Pop Remixes</div>
+      </div>
+      <div class="venue-detail">
+        <div class="venue-detail-label">DJs Available</div>
+        <div class="venue-detail-value">5 Artists</div>
+      </div>
+    </div>
+  </div>
+  <img src="../branding/BE_Logo_Transparent.png" alt="" class="logo-small">
+</div>
+
+<!-- DJ: Benji (also plays NOBU) -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/benji-photo1.jpg" alt="Benji" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Benji</h2>
+      <p class="dj-genres">Afro House / Organic House / Soulful House</p>
+      <p class="dj-bio">Afro and Organic House specialist known for weaving organic house remixes of familiar tracks into sophisticated sets. Regular performer at Tribe Beach Club and Escape Bangkok. Also plays NOBU on Tuesdays.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Early</span>
+  </div>
+</div>
+
+<!-- DJ: Enjoy -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/enjoy-photo2.jpg" alt="DJ Enjoy" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">DJ Enjoy</h2>
+      <p class="dj-genres">House / Electronic</p>
+      <p class="dj-bio">10+ years behind the decks with a deep passion for house music. Known for seamless transitions and uplifting energy, creating dance floor moments that connect people through rhythm, melody, and pure happiness.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Early</span>
+  </div>
+</div>
+
+<!-- DJ: Mizuyo -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/mizuyo-photo1.jpg" alt="Mizuyo" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Mizuyo</h2>
+      <p class="dj-genres">Funk / Disco / Latin / World Fusion</p>
+      <p class="dj-bio">Japanese DJ with 25+ years experience, Bangkok-based since 2010. Cross-genre specialist blending funk, disco, Latin, and world fusion. Big Mountain Music Festival performer. Residencies at Park Hyatt, Sofitel, and Havana Social.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Early</span>
+  </div>
+</div>
+
+<!-- DJ: Furry -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/furry-photo1.png" alt="DJ Furry" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">DJ Furry</h2>
+      <p class="dj-genres">House / Commercial / Open Format</p>
+      <p class="dj-bio">Dynamic DJ with experience at Escape, Bar Rouge Pullman, and Kimpton Maa-Lai. Festival performer at Half Moon Samui and Rolling Loud Thailand. International gigs across China, Singapore, and Nepal.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Early</span>
+  </div>
+</div>
+
+<!-- DJ: Pound -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/pound-photo1.jpg" alt="DJ Pound" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">DJ Pound</h2>
+      <p class="dj-genres">Open Format / Pop Charts / R&B / Hip Hop</p>
+      <p class="dj-bio">20-year veteran captivating crowds from hotels to clubs. Expertise in international pop charts, R&B, and hip-hop. Adapts seamlessly to guest profiles. Currently at CRU Champagne Bar and Hilton. Also plays LDK Late on Mondays.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Early</span>
+  </div>
+</div>
+
+<!-- DJ: Yui Truluv (also plays LDK Late) -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/yuitruluv-photo1.jpg" alt="Yui Truluv" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Yui Truluv</h2>
+      <p class="dj-genres">Open Format / Commercial / R&B / Hip Hop / Latin</p>
+      <p class="dj-bio">Bangkok DJ with 10+ years experience at clubs, hotels, and events. Known for smooth, feel-good vibes and strong crowd connection. Versatile range from 70s classics to today's hits. Also plays LDK Late on Thu/Sun.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Early</span>
+  </div>
+</div>
+
+<!-- Slide: Le Du Kaan Late Intro -->
+<div class="slide venue-slide">
+  <div class="content">
+    <h2>Le Du Kaan</h2>
+    <h3>Late Slot — Cool, Trendy, Flexible</h3>
+    <div class="venue-info">
+      <div class="venue-detail">
+        <div class="venue-detail-label">Hours</div>
+        <div class="venue-detail-value">21:00 - 24:00</div>
+      </div>
+      <div class="venue-detail">
+        <div class="venue-detail-label">Music Direction</div>
+        <div class="venue-detail-value">International Pop, adaptable to guest profiles</div>
+      </div>
+      <div class="venue-detail">
+        <div class="venue-detail-label">DJs Available</div>
+        <div class="venue-detail-value">6 Artists</div>
+      </div>
+    </div>
+  </div>
+  <img src="../branding/BE_Logo_Transparent.png" alt="" class="logo-small">
+</div>
+
+<!-- DJ: Eskay -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/eskay-photo1.jpg" alt="Eskay" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Eskay Da Real</h2>
+      <p class="dj-genres">Hip Hop / R&B / Afro House / Open Format</p>
+      <p class="dj-bio">French DJ and producer with 15+ years experience and signature "French Touch." Renowned for blending Hip Hop, R&B, Afro House, and Latino rhythms. Electrified Parisian nightlife before bringing his diverse style to Bangkok.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Late + Early</span>
+  </div>
+</div>
+
+<!-- DJ: DJ Pound (also plays LDK Early) -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/pound-photo1.jpg" alt="DJ Pound" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">DJ Pound</h2>
+      <p class="dj-genres">Open Format / Pop Charts / R&B / Hip Hop</p>
+      <p class="dj-bio">20-year veteran captivating crowds from hotels to clubs. Expertise in international pop charts, R&B, and hip-hop. Adapts seamlessly to guest profiles. Currently at CRU Champagne Bar and Hilton. Also plays LDK Early on Fridays.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Late</span>
+  </div>
+</div>
+
+<!-- DJ: Manymaur -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/manymaur-photo1.jpg" alt="Manymaur" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Manymaur</h2>
+      <p class="dj-genres">House / Tech House / Deep House / Commercial</p>
+      <p class="dj-bio">Versatile house DJ with residencies at Novotel, Centara Grand, Hotel Indigo, and Banyan Tree Bangkok. Natural crowd reader who builds atmosphere and adapts to any musical direction.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Late</span>
+  </div>
+</div>
+
+<!-- DJ: Scotty B -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/scottyb-photo1.jpg" alt="Scotty B" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Scotty B</h2>
+      <p class="dj-genres">Open Format / Nu Disco / Party / Pop</p>
+      <p class="dj-bio">British DJ/Producer with 30+ years experience and UK chart releases. Former Director of Music at Minor International Hotels Thailand and W Beijing. Highly versatile - equally strong with sophisticated house and commercial open format sets.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Late</span>
+  </div>
+</div>
+
+<!-- DJ: UFO (also plays NOBU) -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/ufo-photo1.jpg" alt="UFO" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">UFO</h2>
+      <p class="dj-genres">Afro House / Organic House / Soulful House / Commercial</p>
+      <p class="dj-bio">Classy DJ bringing Jazzy House, Soulful Funk, and Afro rhythms. Founder of "We Go Deep" rooftop parties. Can adapt to commercial sets when needed. Also plays NOBU on Sundays.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Late</span>
+  </div>
+</div>
+
+<!-- DJ: Yui Truluv -->
+<div class="slide dj-slide">
+  <div class="content">
+    <div class="dj-photo-container">
+      <img src="../djs/images/yuitruluv-photo1.jpg" alt="Yui Truluv" class="dj-photo">
+      <div class="dj-photo-overlay"></div>
+    </div>
+    <div class="dj-info">
+      <h2 class="dj-name">Yui Truluv</h2>
+      <p class="dj-genres">Open Format / Commercial / R&B / Hip Hop / Latin</p>
+      <p class="dj-bio">Bangkok DJ with 10+ years experience at clubs, hotels, and events. Known for smooth, feel-good vibes and strong crowd connection. Versatile range from 70s classics to today's hits. Sofitel Krabi Music Festival performer.</p>
+    </div>
+    <span class="dj-venue-tag">Le Du Kaan Late</span>
+  </div>
+</div>
+
+<!-- Summary Slide -->
+<div class="slide">
+  <div class="content">
+    <h2>Roster Summary</h2>
+    <table class="summary-table">
+      <tr>
+        <th>Venue</th>
+        <th>DJs Available</th>
+        <th>Primary Style</th>
+      </tr>
+      <tr>
+        <td>NOBU</td>
+        <td>7</td>
+        <td>Afro / Organic / Deep House</td>
+      </tr>
+      <tr>
+        <td>Le Du Kaan Early</td>
+        <td>5</td>
+        <td>Indie Dance / Nu Disco / House</td>
+      </tr>
+      <tr>
+        <td>Le Du Kaan Late</td>
+        <td>6</td>
+        <td>International Pop / Commercial</td>
+      </tr>
+    </table>
+    <div class="total-box">
+      <div class="total-item">
+        <div class="total-number">15</div>
+        <div class="total-label">Total DJs</div>
+      </div>
+      <div class="total-item">
+        <div class="total-number">7</div>
+        <div class="total-label">Days Coverage</div>
+      </div>
+      <div class="total-item">
+        <div class="total-number">3</div>
+        <div class="total-label">Venues</div>
+      </div>
+    </div>
+  </div>
+  <img src="../branding/BE_Logo_Transparent.png" alt="" class="logo-small">
+</div>
+
+<!-- Contact Slide -->
+<div class="slide">
+  <div class="content">
+    <img src="../branding/BE_Logo_Transparent.png" alt="Bright Ears" class="logo">
+    <p class="contact-item">brightears.io</p>
+  </div>
+</div>
+
+</body>
+</html>
