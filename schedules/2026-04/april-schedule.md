@@ -12,7 +12,7 @@
 |-----|-------------------|------------------------|----------------------|
 | **Mon** | RabbitDisco | Hvngyvk | Joyyly |
 | **Tue** | Benji | Eskay | Scotty B |
-| **Wed** | Izaar | Fias | Manymaur |
+| **Wed** | Izaar | **TBD** | Manymaur |
 | **Thu** | Linze | Eskay | Joyyly |
 | **Fri** | DJ Mint | DJ Furry | Scotty B |
 | **Sat** | Vita | Yui Truluv | Scotty B |
@@ -30,7 +30,7 @@
 
 | Date | Day | NOBU | LDK Early | LDK Late |
 |------|-----|------|-----------|----------|
-| Apr 1 | Wed | Izaar | Fias | Manymaur |
+| Apr 1 | Wed | Izaar | **Yui Truluv** (Fias no-show) | Manymaur (20:00-24:00, 4hrs) |
 | Apr 2 | Thu | Linze | Eskay | Joyyly |
 | Apr 3 | Fri | DJ Mint | DJ Furry | Scotty B |
 | Apr 4 | Sat | Vita | Yui Truluv | Scotty B |
@@ -44,7 +44,7 @@
 |------|-----|------|-----------|----------|
 | Apr 6 | Mon | RabbitDisco | Hvngyvk | Joyyly |
 | Apr 7 | Tue | Benji | Eskay | Scotty B |
-| Apr 8 | Wed | Izaar | Fias | Manymaur |
+| Apr 8 | Wed | Izaar | **TBD** | Manymaur |
 | Apr 9 | Thu | Linze | Eskay | Joyyly |
 | Apr 10 | Fri | DJ Mint | DJ Furry | Scotty B |
 | Apr 11 | Sat | **Benji** | Yui Truluv | Scotty B |
@@ -58,7 +58,7 @@
 |------|-----|------|-----------|----------|
 | Apr 13 | Mon | RabbitDisco | Hvngyvk | Joyyly |
 | Apr 14 | Tue | Benji | Eskay | Scotty B |
-| Apr 15 | Wed | Izaar | Fias | Manymaur |
+| Apr 15 | Wed | Izaar | **TBD** | Manymaur |
 | Apr 16 | Thu | **T-Gecko** | Eskay | Joyyly |
 | Apr 17 | Fri | DJ Mint | DJ Furry | Scotty B |
 | Apr 18 | Sat | Vita | Yui Truluv | Scotty B |
@@ -72,7 +72,7 @@
 |------|-----|------|-----------|----------|
 | Apr 20 | Mon | RabbitDisco | Hvngyvk | Joyyly |
 | Apr 21 | Tue | Benji | Eskay | Scotty B |
-| Apr 22 | Wed | Izaar | Fias | Manymaur |
+| Apr 22 | Wed | Izaar | **TBD** | Manymaur |
 | Apr 23 | Thu | Linze | Eskay | Joyyly |
 | Apr 24 | Fri | DJ Mint | DJ Furry | Scotty B |
 | Apr 25 | Sat | Vita | Yui Truluv | Scotty B |
@@ -84,7 +84,7 @@
 |------|-----|------|-----------|----------|
 | Apr 27 | Mon | RabbitDisco | Hvngyvk | Joyyly |
 | Apr 28 | Tue | Benji | Eskay | Scotty B |
-| Apr 29 | Wed | Izaar | Fias | Manymaur |
+| Apr 29 | Wed | Izaar | **TBD** | Manymaur |
 | Apr 30 | Thu | Linze | Eskay | Joyyly |
 
 ---
