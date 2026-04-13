@@ -57,7 +57,7 @@
 | Date | Day | NOBU | LDK Early | LDK Late |
 |------|-----|------|-----------|----------|
 | Apr 13 | Mon | RabbitDisco | Hvngyvk | Joyyly |
-| Apr 14 | Tue | Benji | Eskay | Scotty B |
+| Apr 14 | Tue | **DJ Mint** | Eskay | Scotty B |
 | Apr 15 | Wed | Izaar | **TBD** | Manymaur |
 | Apr 16 | Thu | **T-Gecko** | Eskay | Joyyly |
 | Apr 17 | Fri | DJ Mint | DJ Furry | Scotty B |
