@@ -57,13 +57,14 @@
 | Date | Day | NOBU | LDK Early | LDK Late |
 |------|-----|------|-----------|----------|
 | Apr 13 | Mon | RabbitDisco | Hvngyvk | Joyyly |
-| Apr 14 | Tue | **DJ Mint** | Eskay | Scotty B |
+| Apr 14 | Tue | **DJ Mint** | **Scotty B** ⚡ | Scotty B |
 | Apr 15 | Wed | Izaar | **TBD** | Manymaur |
 | Apr 16 | Thu | **T-Gecko** | Eskay | Joyyly |
 | Apr 17 | Fri | DJ Mint | DJ Furry | Scotty B |
 | Apr 18 | Sat | Vita | Yui Truluv | Scotty B |
 | Apr 19 | Sun | UFO | Joyyly | Yui Truluv |
 
+*Apr 14 (Tue): Scotty B DOUBLE SHIFT at LDK — Early (18:00-21:00) + Late (21:00-24:00). Eskay sick. Pay Scotty for both shifts.*
 *Apr 16 (Thu): T-Gecko at NOBU (instead of Linze)*
 
 ### Week 4 (Apr 20-26)
