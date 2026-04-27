@@ -19,11 +19,23 @@ Bright Ears Co., Ltd. manages DJ entertainment at two high-end Bangkok venues ow
 
 ### NOBU Brunch (1st Sunday of Every Month)
 Starting March 2026, the 1st Sunday of each month moves the NOBU evening performance to Brunch:
-- **Time:** 11:30-15:30 (4 hours)
+- **DJ active performance:** 11:30-15:00 (3.5 hours)
+- **DJ payment / invoice:** 4 hours @ standard rate (invoiced as 11:00-15:00, setup buffer included). Norbert-confirmed Apr 26 2026.
 - **DJ:** Same Sunday DJ (performs at brunch instead of evening — no evening set that night)
-- **Sir i Sax (Bongo):** Plays alongside the DJ for 3 hours
-- **Billing:** DJ at regular rates (4 hrs × THB 1,000). Bongo player invoiced as extra line: THB 6,315.79 + 7% VAT.
-- **First date:** March 1, 2026
+- **Sir i Sax (Percussionist):** 12:00-15:00 (3 hours, starts 30 min after DJ)
+- **Billing:** DJ at regular rates (4 hrs × THB 1,150 venue rate). Percussionist invoiced as extra line: **THB 6,315.79 + 7% VAT**. Sir i Sax paid net THB 6,000 (THB 2,000/hr × 3 hrs).
+- **First date:** March 1, 2026 (every month thereafter, e.g. Apr 5, May 3, Jun 7, etc.)
+- **Track in:** `feedback_nobu_first_sunday_brunch.md` memory + this file. T-Gecko confirmed declined May 3 brunch (too early); UFO retains brunch rotation per Norbert msg 2026-04-27.
+
+### NOBU Songkran Kanpai (Annual Recurring — April 13, 14, 15)
+Every April during Songkran, NOBU runs Kanpai event sessions on the 57th-floor event terrace, on top of the regular evening dinner DJ:
+- **Dates:** April 13, 14, 15 (3 nights, days 1-3 of Songkran)
+- **Time:** 19:00-23:00 (4 hours each)
+- **Location:** 57th event terrace (separate from main dining DJ)
+- **Source:** Alex (NOBU manager) ↔ Norbert LINE 31/3/26 14:43 BKK: "We will have extra Kanpai sessions for Songkran. April 13, 14, 15. We need extra DJs at 57th event terrace on these days. Usual 7pm-11pm."
+- **Billing:** 3 separate "NOBU Kanpai Songkran Terrace" lines on the April invoice, each at standard event rate (4 hrs × THB 1,150 = THB 4,600 per night, THB 13,800 total).
+- **For 2027 onwards:** Assume this recurs; confirm dates with Alex by end of March each year. Log via `scripts/log-venue-ask.py` so the pre-invoice cross-check picks it up.
+- **Failure mode (Apr 27 2026):** Almost shipped April invoice missing all 3 nights — pre-invoice cross-check now catches this. See `.claude/rules/venue-asks-capture.md` in BrightEars-Ops.
 
 ### Le Du Kaan Timeslots
 - **Early (18:00-21:00):** 1 DJ, 3 hours
