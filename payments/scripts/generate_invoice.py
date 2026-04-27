@@ -272,10 +272,11 @@ def build_line_items(year, month, venue_config, no_days=None, extra_hours=None,
             flat_amount = fa['amount'].quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
             time_range = fa.get('time', '-')
             desc = fa['description']
+            date_str = fa.get('override_date') or format_date_single(year, month, day)
             items.append({
                 'no': line_no,
                 'description': desc,
-                'date': format_date_single(year, month, day),
+                'date': date_str,
                 'time': time_range,
                 'price': flat_amount,
                 'amount': flat_amount,
@@ -416,16 +417,32 @@ def parse_add_arg(add_str):
 
 
 def parse_flat_add_arg(flat_str):
-    """Parse --flat-add argument: 'DAY:AMOUNT:START-END:Description text' -> dict
-    For fixed-amount charges not based on hourly rate (e.g., percussionist)."""
+    """Parse --flat-add argument:
+       'DAY:AMOUNT:START-END:Description'  (within invoice month)
+       or
+       'YYYY-MM-DD:AMOUNT:START-END:Description'  (any date — useful when the
+       outside event spans into the next month, e.g. May 1 on an April invoice).
+
+    Returns dict with either 'day' (int) or 'override_date' (str DD.MM.YYYY).
+    """
     parts = flat_str.split(':', 3)
     if len(parts) < 4:
         print(f"Error: Invalid --flat-add format: {flat_str}")
         print("Expected: DAY:AMOUNT:START-END:DESCRIPTION")
+        print("       or YYYY-MM-DD:AMOUNT:START-END:DESCRIPTION")
         print("  e.g., 1:6315.79:11:30-15:30:Percussionist - NOBU Brunch")
+        print("  e.g., 2026-05-01:8422:20:00-24:00:Outside Event Booking")
         sys.exit(1)
 
-    day = int(parts[0])
+    first = parts[0]
+    override_date = None
+    if re.match(r'^\d{4}-\d{2}-\d{2}$', first):
+        y, m, d = first.split('-')
+        override_date = f"{d}.{m}.{y}"
+        day = int(d)
+    else:
+        day = int(first)
+
     amount = Decimal(parts[1])
     remainder = ':'.join(parts[2:])
     time_match = re.match(r'(\d+:\d+\s*-\s*\d+:\d+):(.*)', remainder)
@@ -436,7 +453,10 @@ def parse_flat_add_arg(flat_str):
         time_range = '-'
         description = remainder
 
-    return {'day': day, 'amount': amount, 'time': time_range, 'description': description}
+    out = {'day': day, 'amount': amount, 'time': time_range, 'description': description}
+    if override_date:
+        out['override_date'] = override_date
+    return out
 
 
 def parse_args():
