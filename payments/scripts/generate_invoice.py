@@ -58,7 +58,17 @@ MONTH_NAMES = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 MONTH_FULL = ['', 'January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August', 'September', 'October', 'November', 'December']
 
-CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+import os, shutil
+def _resolve_chrome():
+    mac_path = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    if os.path.exists(mac_path):
+        return mac_path
+    for cmd in ('chromium-browser', 'chromium', 'google-chrome', 'chrome'):
+        path = shutil.which(cmd)
+        if path:
+            return path
+    return mac_path  # fallback (will error visibly if missing)
+CHROME = _resolve_chrome()
 
 # ---------------------------------------------------------------------------
 # Number to words (with hyphens for compound numbers, decimal support)
@@ -136,7 +146,7 @@ def fmt(amount):
 # ---------------------------------------------------------------------------
 
 def build_line_items(year, month, venue_config, no_days=None, extra_hours=None,
-                     credits=None, additions=None, flat_additions=None):
+                     credits=None, additions=None, flat_additions=None, no_base=False):
     """Build invoice line items for a specific venue.
 
     Args:
@@ -154,20 +164,23 @@ def build_line_items(year, month, venue_config, no_days=None, extra_hours=None,
     month_abbr = MONTH_NAMES[month]
     daily_rate = venue_config['daily_rate']
 
-    # Base charge: venue daily rate x days in month
-    base_amount = daily_rate * days_in_month
-
-    items = [{
-        'no': 1,
-        'description': venue_config['description'],
-        'date': format_date_range(year, month),
-        'time': venue_config['time'],
-        'price': base_amount,
-        'amount': base_amount,
-    }]
+    # Base charge: venue daily rate x days in month (skipped if no_base=True)
+    if no_base:
+        items = []
+        line_no = 1
+    else:
+        base_amount = daily_rate * days_in_month
+        items = [{
+            'no': 1,
+            'description': venue_config['description'],
+            'date': format_date_range(year, month),
+            'time': venue_config['time'],
+            'price': base_amount,
+            'amount': base_amount,
+        }]
+        line_no = 2
 
     # Deductions for cancelled days
-    line_no = 2
     if no_days:
         for day in sorted(no_days):
             items.append({
@@ -321,6 +334,7 @@ def generate_pdf(html_path, pdf_path):
         CHROME,
         '--headless=new',
         '--disable-gpu',
+        '--no-sandbox',
         f'--print-to-pdf={pdf_path}',
         '--print-to-pdf-no-header',
         f'file://{html_path}',
@@ -437,6 +451,7 @@ def parse_args():
     parser.add_argument('--extra', action='append', help='Extra partial hours on cancelled day: DAY:START-END')
     parser.add_argument('--add', action='append', help='Additional charge: DAY:HOURS:START-END:DESCRIPTION')
     parser.add_argument('--flat-add', action='append', help='Fixed-amount charge: DAY:AMOUNT:START-END:DESCRIPTION')
+    parser.add_argument('--no-base', action='store_true', help='Skip the base monthly DJ Service line (used for outside-event-only invoices)')
     parser.add_argument('--html-only', action='store_true', help='Skip PDF generation')
     parser.add_argument('--dry-run', action='store_true', help='Preview calculations only')
     return parser.parse_args()
@@ -475,7 +490,8 @@ def main():
 
     # 4. Build line items
     items = build_line_items(year, month, venue_config, no_days or None,
-                             extra_hours, credits, additions, flat_additions)
+                             extra_hours, credits, additions, flat_additions,
+                             no_base=args.no_base)
 
     # 5. Calculate totals
     sub_total = sum(item['amount'] for item in items)
