@@ -27,6 +27,33 @@ Starting March 2026, the 1st Sunday of each month moves the NOBU evening perform
 - **First date:** March 1, 2026 (every month thereafter, e.g. Apr 5, May 3, Jun 7, etc.)
 - **Track in:** `feedback_nobu_first_sunday_brunch.md` memory + this file. T-Gecko confirmed declined May 3 brunch (too early); UFO retains brunch rotation per Norbert msg 2026-04-27.
 
+### NOBU/LDK Outside Booking Rate (Guest Events)
+When an outside client books NOBU or LDK for a private event and asks BrightEars to provide the DJ, the **outside-booking rate** applies (NOT the standard internal-event rate). Norbert flags each outside booking explicitly — assume internal rate by default.
+
+| Duration | Invoice net | + 7% VAT |
+|---|---|---|
+| 3 hr | THB 6,316 | THB 6,758 |
+| 4 hr | THB 8,422 | THB 9,012 |
+| 5 hr | THB 10,527 | THB 11,264 |
+| 6 hr | THB 12,632 | THB 13,517 |
+| Each additional hour | THB 2,106 | THB 2,253 |
+
+Same rate for all DJs. Per-hour ≈ THB 2,106 (gross-up of THB 2,000 net for 5% WHT). Roughly 83% premium over the standard ฿1,150/hr internal-event rate.
+
+**How an outside booking flows:**
+1. Outside client confirms date/time/duration with NOBU sales.
+2. NOBU sales team checks DJ availability with BrightEars.
+3. BrightEars confirms the DJ + invoices the venue at outside-booking rate.
+4. Venue invoices the outside client directly.
+
+**On the BrightEars invoice:** outside-booking events appear as a flat-add line (not the standard hourly add). Use `--flat-add DAY:AMOUNT:TIME:Description` in `generate_invoice.py`. Description: "Outside Event Booking — 57th Terrace (Nhrs)".
+
+**Internal events stay at standard rate:** Songkran Kanpai (Apr 13-15), the recurring Apr 24 Kanpai, anniversaries, NOBU's own programming = standard event rate ฿1,150/hr (4hr = ฿4,600). When in doubt, ASK NORBERT before invoicing — the rate gap is ฿3,800/event.
+
+**Reference image:** `branding/dj-event-rates-quick-reference.jpg` (the official internal rate sheet).
+
+**Track in:** `data/venue-asks.jsonl` (BrightEars-Ops). When Norbert flags an outside booking, log immediately with `--rate "guest-NNNN-net-per-Nhr"`.
+
 ### NOBU Songkran Kanpai (Annual Recurring — April 13, 14, 15)
 Every April during Songkran, NOBU runs Kanpai event sessions on the 57th-floor event terrace, on top of the regular evening dinner DJ:
 - **Dates:** April 13, 14, 15 (3 nights, days 1-3 of Songkran)
