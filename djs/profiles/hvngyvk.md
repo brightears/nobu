@@ -82,6 +82,14 @@ Thai DJ and producer with over 10 years of experience in the electronic music sc
 - **Primary slot:** Monday LDK Early
 - **Backup:** Can cover Eskay gaps (Tue/Wed Early)
 
+## Payment Info (collected 2026-05-28 02:25 BKK for first payment)
+
+- **Bank:** Bangkok Bank
+- **Account:** 8710352892
+- **Account Name:** Woranan Pinyawong
+- **Address (EN):** 15/269 Life48, Phakanong, Klongtaei, Bangkok 10110
+- **ID:** sent via LINE image (with Norbert for filing)
+
 ## Notes
 
 Very experienced club DJ with strong festival credentials (808 Festival with top-tier headliners). Massive venue list across Thailand and Southeast Asia. Has her own production catalogue on Spotify. SpacePlus Bangkok residency shows she's current in the scene. Good fit for Le Du Kaan — versatile enough for both Early (House/Nu Disco) and Late (adaptable to crowd) slots. The Afro House capability also makes her a potential NOBU option.
