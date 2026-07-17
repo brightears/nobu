@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@page { size: A4; margin: 0; }
+* { margin:0; padding:0; box-sizing:border-box; }
+:root{ --ink:#1c1a17; --muted:#6b6558; --faint:#938c7e; --line:#e4dfd5; --accent:#9c7a2e; --wash:#faf8f3; }
+body{ font-family:'Helvetica Neue',Arial,sans-serif; color:var(--ink); font-size:11px; line-height:1.5; }
+.page{ width:210mm; min-height:297mm; padding:10mm 16mm 8mm; }
+.serif{ font-family:Georgia,'Times New Roman',serif; }
+
+/* header */
+.head{ display:flex; justify-content:space-between; align-items:flex-start; }
+.co-name{ font-weight:700; font-size:13px; margin-bottom:3px; }
+.co p{ line-height:1.55; color:#2c2924; }
+.co .contact{ color:var(--muted); margin-top:7px; }
+.meta{ text-align:right; min-width:210px; }
+.doc-title{ font-family:Georgia,serif; font-size:30px; letter-spacing:1px; color:var(--accent); font-weight:400; }
+.doc-sub{ font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--faint); margin-top:2px; }
+.meta table{ margin-left:auto; margin-top:10px; border-collapse:collapse; }
+.meta td{ padding:2px 0; font-size:10.5px; }
+.meta td.k{ color:var(--muted); text-transform:uppercase; letter-spacing:1px; font-size:9px; padding-right:14px; text-align:left; }
+.meta td.v{ text-align:right; font-weight:600; }
+.rule{ height:2px; background:var(--accent); margin:12px 0 0; }
+.rule.thin{ height:1px; background:var(--line); }
+
+/* parties */
+.parties{ display:flex; gap:40px; margin-top:13px; }
+.party{ flex:1; }
+.label{ font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px; }
+.party .nm{ font-weight:600; }
+.party p{ color:#2c2924; line-height:1.5; }
+.party .tax{ color:var(--muted); margin-top:4px; }
+
+.reline{ margin-top:12px; font-size:11.5px; }
+.reline .label{ display:inline; margin-right:8px; }
+.reline span.txt{ color:#2c2924; }
+
+/* tables */
+table.items{ width:100%; border-collapse:collapse; margin-top:11px; }
+table.items th{ background:var(--ink); color:#f3efe6; font-size:9px; letter-spacing:1.2px; text-transform:uppercase;
+                font-weight:600; padding:7px 12px; text-align:left; }
+table.items th.r, table.items td.r{ text-align:right; }
+table.items th.c, table.items td.c{ text-align:center; }
+table.items td{ padding:6px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+table.items tr.alt td{ background:var(--wash); }
+.it-name{ font-weight:600; }
+.it-sub{ color:var(--muted); font-size:10px; margin-top:2px; }
+.hilite td{ background:#f6efdf !important; }
+.hilite .it-name{ color:#6d5518; }
+
+/* totals */
+.totals{ margin-top:9px; margin-left:auto; width:290px; }
+.totals tr td{ padding:3px 0; font-size:11px; }
+.totals td.k{ color:var(--muted); }
+.totals td.v{ text-align:right; font-variant-numeric:tabular-nums; }
+.totals tr.grand td{ font-weight:700; font-size:12.5px; border-top:1px solid var(--line); padding-top:9px; }
+.totals tr.net td{ font-weight:700; font-size:13px; color:var(--accent); border-top:2px solid var(--accent); padding-top:9px; }
+.totals tr.wht td.v{ color:#9a3b3b; }
+.words{ border:1px solid var(--line); background:var(--wash); text-align:center; font-size:9.5px; letter-spacing:.3px;
+        padding:6px; margin-top:10px; color:#403b31; }
+
+/* rate-card blocks */
+.rate-note{ margin-top:6px; color:var(--muted); font-size:10px; }
+.illus{ margin-top:14px; border:1px solid var(--line); border-radius:2px; overflow:hidden; }
+.illus .ih{ background:var(--wash); padding:8px 14px; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); font-weight:700; border-bottom:1px solid var(--line); }
+.illus table{ width:100%; border-collapse:collapse; }
+.illus td{ padding:6px 14px; font-size:11px; border-bottom:1px solid #efeadf; }
+.illus td.r{ text-align:right; font-variant-numeric:tabular-nums; }
+.illus tr:last-child td{ border-bottom:none; }
+.illus tr.sum td{ font-weight:700; background:#fbf9f4; }
+
+/* terms + footer */
+.terms{ margin-top:13px; }
+.terms h4{ font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
+.terms ul{ list-style:none; }
+.terms li{ position:relative; padding-left:16px; margin-bottom:3px; color:#3a362e; font-size:10.5px; line-height:1.45; }
+.terms li::before{ content:"—"; position:absolute; left:0; color:var(--accent); }
+.spacer{ height:6px; }
+.sign{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px; }
+.sign .accept, .sign .by{ width:44%; }
+.sign .sig-line{ border-top:1px solid #b9b3a5; margin-top:20px; padding-top:5px; font-size:10px; color:var(--muted); }
+.sign .by .co-sign{ font-weight:700; margin-bottom:0; }
+.sign .by .role{ color:var(--muted); font-size:10px; }
+.bank{ margin-top:10px; border-top:1px solid var(--line); padding-top:7px; }
+.bank .bh{ font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px; }
+.bank p{ color:var(--muted); font-size:10px; line-height:1.55; }
+.foot{ margin-top:6px; text-align:center; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--faint); }
+</style></head>
+<body><div class="page">
+  <div class="head">
+    <div class="co">
+      <p class="co-name">Bright Ears CO., LTD. (Head Office)</p>
+      <p>11/10, Soi Panjit 3, Garden Home Village</p><p>Phaholyothin Road, Amphur Kookot</p><p>Lum Luk Ka District, Pathum Thani, Thailand</p>
+      <p class="contact">Tel.: +66 (0) 85 664 4142 &nbsp;·&nbsp; office@brightears.com</p>
+    </div>
+    <div class="meta">
+      <div class="doc-title">Quotation</div>
+      <div class="doc-sub">Bright Ears · DJ Programming</div>
+      <table>
+        <tr><td class="k">Quotation No.</td><td class="v">QT-NOBU-2026-08-01</td></tr>
+        <tr><td class="k">Date</td><td class="v">17.07.2026</td></tr>
+        <tr><td class="k">Valid Until</td><td class="v">16.08.2026</td></tr>
+        <tr><td class="k">Tax No.</td><td class="v">0105550096659</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="rule"></div>
+  <div class="parties">
+    <div class="party">
+      <div class="label">Quotation To</div>
+      <p class="nm">TCC Hotel Collection Co., Ltd. (Branch 00015)</p>
+      <p>1 Empire Tower G, 53, 56, 57, 58 Floor,</p><p>South-Sathorn Road, Yannawa Sathorn, Bangkok 10120 Thailand</p>
+      <p class="tax">Tax ID: 0105546025131</p>
+    </div>
+  </div>
+  <div class="reline"><span class="label">Re</span><span class="txt">DJ &amp; live-musician programming for the opening of the new NOBU concept — 4 &amp; 5 August 2026.</span></div>
+  <table class="items">
+    <tr><th>Description</th><th class="c">Qty</th><th class="r">Rate (THB)</th><th class="r">Amount (THB)</th></tr>
+    <tr class="">
+          <td><div class="it-name">DJ Performance — Aopsher</div><div class="it-sub">Tuesday 4 August 2026 · 20:00–24:00 · new-concept opening</div></td>
+          <td class="c">4 hrs</td><td class="r">2,500 / hr</td><td class="r">10,000.00</td></tr><tr class="alt">
+          <td><div class="it-name">Live Musician — Violin (Champ)</div><div class="it-sub">Tuesday 4 August 2026 · opening night</div></td>
+          <td class="c">1 night</td><td class="r">10,000 / night</td><td class="r">10,000.00</td></tr><tr class="">
+          <td><div class="it-name">DJ Performance — Funktastic</div><div class="it-sub">Wednesday 5 August 2026 · 20:00–24:00 · new-concept opening</div></td>
+          <td class="c">4 hrs</td><td class="r">2,500 / hr</td><td class="r">10,000.00</td></tr><tr class="alt">
+          <td><div class="it-name">Live Musician — Saxophone (Sir I Sax)</div><div class="it-sub">Wednesday 5 August 2026 · opening night</div></td>
+          <td class="c">1 night</td><td class="r">10,000 / night</td><td class="r">10,000.00</td></tr>
+  </table>
+  <table class="totals">
+    <tr><td class="k">Sub Total</td><td class="v">40,000.00 THB</td></tr>
+    <tr><td class="k">VAT 7%</td><td class="v">2,800.00 THB</td></tr>
+    <tr class="grand"><td class="k">Grand Total</td><td class="v">42,800.00 THB</td></tr>
+    <tr class="wht"><td class="k">Less WHT 3%</td><td class="v">-1,200.00 THB</td></tr>
+    <tr class="net"><td class="k">Net Payable</td><td class="v">41,600.00 THB</td></tr>
+  </table>
+  <div class="words">FORTY-ONE THOUSAND SIX HUNDRED BAHT</div>
+  <div class="terms">
+    <h4>Terms &amp; Conditions</h4>
+    <ul>
+      <li>Rates are exclusive of VAT; 7% VAT is added and 3% withholding tax is deducted at source (net payable as above).</li>
+      <li>DJ &amp; sound equipment provided by the venue.</li>
+      <li>Performance times may be adjusted by mutual agreement; changes require 48 hours' notice.</li>
+      <li>This quotation is valid until 16.08.2026.</li>
+    </ul>
+  </div>
+  <div class="spacer"></div>
+  <div class="sign">
+    <div class="accept"><div class="sig-line">Accepted by (Customer) &nbsp;·&nbsp; Date</div></div>
+    <div class="by">
+      <p class="co-sign">Bright Ears Co., Ltd.</p>
+      <div class="sig-line">Kullaphat Wittayaphan &nbsp;·&nbsp; Managing Director</div>
+    </div>
+  </div>
+  <div class="bank">
+    <div class="bh">Bank Information</div>
+    <p>BANK OF AYUDHYA PUBLIC COMPANY LIMITED</p><p>Fortune Town BR, C.P. Tower II, Ratchadapisek Road, Dindaeng, Bangkok 10400, Thailand.</p><p>Account Name: Co.,Ltd. Bright Ears</p><p>Saving Number: 253-1-43635-5</p><p>Swift Code: AYUDTHBK</p>
+  </div>
+  <div class="foot">Bright Ears — DJ Booking, Scheduling &amp; Management · Bangkok</div></div></body></html>
