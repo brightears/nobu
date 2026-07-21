@@ -5,7 +5,8 @@ split) change. On-brand (logo + cyan). LDK unchanged."""
 import json
 OUT="/home/brightears/nobu/contracts"
 fonts=json.load(open("/home/brightears/BrightEars-Ops/data/brand/inter-fonts-base64.json"))
-LOGO=open("/home/brightears/BrightEars-Ops/scratch_contract/logolight_b64.txt").read().strip()
+import base64
+LOGO=base64.b64encode(open("/home/brightears/BrightEars-Ops/data/brand/logo-light.png","rb").read()).decode()
 
 CYAN="#00bbe4"; CYAN_D="#0093b5"; INK="#1a1a1a"; MUTED="#5f5f5f"; LINE="#dcdcdc"
 FONTFACE=f"""
@@ -40,8 +41,8 @@ section{{ page-break-inside:avoid; }}
 .sig p.pre{{ font-style:italic; color:#333; margin-bottom:16px; }}
 .sigtable{{ display:flex; gap:40px; }}
 .sigcol{{ flex:1; }}
-.sigcol .co{{ font-weight:600; margin-bottom:26px; }}
-.sigblk{{ margin-bottom:20px; }}
+.sigcol .co{{ font-weight:600; margin-bottom:6px; }}
+.sigblk{{ padding-top:48px; }}
 .sigline{{ border-bottom:1px solid #999; height:1px; margin-bottom:5px; }}
 .signame{{ font-weight:600; font-size:10.5px; }} .sigrole{{ color:{MUTED}; font-size:10px; }}
 """
