@@ -36,6 +36,8 @@ p{{ margin:4px 0; text-align:justify; }}
 .feebox .fl .d{{ font-weight:600; }} .feebox .fl .d small{{ font-weight:400; color:{MUTED}; }}
 .feebox .fl .n{{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }}
 .feebox .fl .n b{{ color:{CYAN_D}; }}
+.note{{ background:#f4fbfd; border-left:3px solid {CYAN}; border-radius:2px; padding:7px 12px; margin:8px 0; }}
+.note p{{ margin:0; text-align:left; }}
 section{{ page-break-inside:avoid; }}
 .sig{{ page-break-inside:avoid; margin-top:22px; }}
 .sig p.pre{{ font-style:italic; color:#333; margin-bottom:16px; }}
@@ -91,6 +93,7 @@ HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></
   <section class="fee"><h2>Fee</h2>
     <p>The Venue agrees to pay the Agency the following nightly rates:</p>
     {fee_box}
+    <div class="note"><p><span class="b">Special dates:</span> The nightly rates above apply to regular scheduled performances only. New Year&rsquo;s Eve (31st December 2026) is excluded from these rates and will be quoted and invoiced separately as a special event.</p></div>
     <p>The Agency&rsquo;s entertainers will perform seven nights per week, from Monday to Sunday, from {TERM}.</p>
     <p>Payment will be made monthly, after receiving the attendance worksheet and invoice. The invoice must be submitted to the accounting department by the 30th of each month to process the payment. The fee will be paid via direct bank transfer to the Agency&rsquo;s account by the 25th of the following month.</p>
   </section>
