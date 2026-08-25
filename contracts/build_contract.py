@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-"""NOBU + LDK Entertainment Agreement — 6-month extension (Aug 1 2026 - Jan 31 2027).
-Verbatim from the signed template; only the term dates + Fee (new NOBU weekday/weekend
-split) change. On-brand (logo + cyan). LDK unchanged."""
-import json
+"""NOBU / LDK Entertainment Agreement — 6-month extension (Aug 1 2026 - Jan 31 2027).
+Verbatim from the signed template; only term dates + Fee (NOBU weekday/weekend split) change.
+On-brand (logo + cyan).
+
+Norbert 2026-08-25 (msg 5517): venue wants SEPARATE contracts — one LDK, one NOBU.
+--venue ldk | nobu | both  (default both = original combined). Only Performance Details,
+Hours of Work, Fee box, and the output filename vary by venue; all other clauses,
+parties, and signatories are identical to the signed template.
+
+Usage: python3 build_contract.py --venue ldk   (or nobu, or both)"""
+import argparse, base64, json
 OUT="/home/brightears/nobu/contracts"
 fonts=json.load(open("/home/brightears/BrightEars-Ops/data/brand/inter-fonts-base64.json"))
-import base64
 LOGO=base64.b64encode(open("/home/brightears/BrightEars-Ops/data/brand/logo-light.png","rb").read()).decode()
 
 CYAN="#00bbe4"; CYAN_D="#0093b5"; INK="#1a1a1a"; MUTED="#5f5f5f"; LINE="#dcdcdc"
@@ -13,7 +19,6 @@ FONTFACE=f"""
 @font-face{{font-family:'Inter';font-weight:400;src:url(data:font/woff2;base64,{fonts['inter400']}) format('woff2');}}
 @font-face{{font-family:'Inter';font-weight:600;src:url(data:font/woff2;base64,{fonts['inter600']}) format('woff2');}}
 """
-
 CSS=f"""
 {FONTFACE}
 @page{{ size:A4; margin:15mm 18mm 14mm; }}
@@ -55,17 +60,28 @@ def sec(h, *paras, cls=""):
 
 TERM="August 1st 2026 &ndash; January 31st 2027"
 
-fee_box=f"""
-<div class="feebox">
-  <div class="fl"><div class="d">Le Du Kaan <small>&mdash; 2 DJs, 6 hours (18:00&ndash;24:00)</small></div>
-    <div class="n">THB 6,900 + 483 (7% VAT) &minus; 207 (3% WHT) = <b>THB 7,176</b> / night</div></div>
-  <div class="fl"><div class="d">NOBU &middot; Sunday&ndash;Thursday <small>&mdash; 1 DJ, 4 hours (20:00&ndash;24:00)</small></div>
+# --- venue-specific pieces (only these vary) ---
+FEE_LDK='''  <div class="fl"><div class="d">Le Du Kaan <small>&mdash; 2 DJs, 6 hours (18:00&ndash;24:00)</small></div>
+    <div class="n">THB 6,900 + 483 (7% VAT) &minus; 207 (3% WHT) = <b>THB 7,176</b> / night</div></div>'''
+FEE_NOBU='''  <div class="fl"><div class="d">NOBU &middot; Sunday&ndash;Thursday <small>&mdash; 1 DJ, 4 hours (20:00&ndash;24:00)</small></div>
     <div class="n">THB 4,600 + 322 (7% VAT) &minus; 138 (3% WHT) = <b>THB 4,784</b> / night</div></div>
   <div class="fl"><div class="d">NOBU &middot; Friday &amp; Saturday <small>&mdash; 2 DJs, 4 hours (20:00&ndash;24:00)</small></div>
-    <div class="n">THB 10,000 + 700 (7% VAT) &minus; 300 (3% WHT) = <b>THB 10,400</b> / night</div></div>
-</div>"""
+    <div class="n">THB 10,000 + 700 (7% VAT) &minus; 300 (3% WHT) = <b>THB 10,400</b> / night</div></div>'''
 
-HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>
+HOURS_LDK='<p><span class="b">Le Du Kaan:</span> 18:00 &ndash; 24:00 (6 hours), with 2 DJs each performing 3 hours per night</p>\n    <p>Total nightly performance hours: 6 hours</p>'
+HOURS_NOBU='<p><span class="b">NOBU:</span> 20:00 &ndash; 24:00 (4 hours), with 1 DJ Sunday to Thursday, and 2 DJs on Friday &amp; Saturday</p>\n    <p>Total nightly performance hours: 4 hours (Sunday&ndash;Thursday) / 8 hours (Friday &amp; Saturday)</p>'
+HOURS_BOTH='<p><span class="b">Le Du Kaan:</span> 18:00 &ndash; 24:00 (6 hours), with 2 DJs each performing 3 hours per night</p>\n    <p><span class="b">NOBU:</span> 20:00 &ndash; 24:00 (4 hours), with 1 DJ Sunday to Thursday, and 2 DJs on Friday &amp; Saturday</p>\n    <p>Total daily performance hours: 10 hours</p>'
+
+VCFG={
+ "ldk":  {"perf":"Le Du Kaan", "fee":FEE_LDK, "hours":HOURS_LDK, "file":"Bright-Ears-LDK-Entertainment-Agreement-Aug2026-Jan2027"},
+ "nobu": {"perf":"NOBU", "fee":FEE_NOBU, "hours":HOURS_NOBU, "file":"Bright-Ears-NOBU-Entertainment-Agreement-Aug2026-Jan2027"},
+ "both": {"perf":"Le Du Kaan &amp; NOBU", "fee":FEE_LDK+"\n"+FEE_NOBU, "hours":HOURS_BOTH, "file":"Bright-Ears-Entertainment-Agreement-Aug2026-Jan2027"},
+}
+
+def build(venue):
+    c=VCFG[venue]
+    fee_box=f'<div class="feebox">\n{c["fee"]}\n</div>'
+    HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>
   <div class="hdr"><img src="data:image/png;base64,{LOGO}" alt="Bright Ears"/>
     <div><div class="wordmark">BRIGHT <span class="be">EARS</span></div>
     <div class="tagline">DJ Booking · Scheduling · Management</div></div></div>
@@ -75,15 +91,13 @@ HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></
 
   <p>This agreement is made between <span class="b">TCC Hotel Collection Co., Ltd.</span>, located at 1 Empire Tower G, 53, 56, 57, 58 Floor, South Sathorn Road, Yannawa, Sathorn, Bangkok 10120, Thailand (TEL: 024071645, TAX ID: 0105546025131, Branch 00015), hereinafter referred to as the &ldquo;Venue&rdquo; and <span class="b">Bright Ears Co., Ltd.</span>, with its Head Office at Garden Home Village, Phaholyothin Road, Amphur Kookot, Lum Luk Ka District, Pathum Thani, Thailand (TEL: 0856644142, TAX ID: 0105550096659), hereinafter referred to as the &ldquo;Agency.&rdquo;</p>
 
-  {sec("Performance Details", f"The Venue hereby engages the Agency to provide entertainment services at Le Du Kaan &amp; NOBU. The Agency&rsquo;s entertainers agree to perform as DJs from Monday &ndash; Sunday, from {TERM}.")}
+  {sec("Performance Details", f"The Venue hereby engages the Agency to provide entertainment services at {c['perf']}. The Agency&rsquo;s entertainers agree to perform as DJs from Monday &ndash; Sunday, from {TERM}.")}
 
   {sec("Working Schedule", "The working schedule shall be mutually agreed upon between the Agency and the Venue. Any changes to the schedule must be communicated at least 48 hours in advance unless otherwise agreed by both parties.")}
 
   <section class="hours"><h2>Hours of Work</h2>
     <p>Normal working hours shall be in accordance with the Venue&rsquo;s rules and regulations for 7 nights per week from Monday to Sunday from {TERM}, as follows:</p>
-    <p><span class="b">Le Du Kaan:</span> 18:00 &ndash; 24:00 (6 hours), with 2 DJs each performing 3 hours per night</p>
-    <p><span class="b">NOBU:</span> 20:00 &ndash; 24:00 (4 hours), with 1 DJ Sunday to Thursday, and 2 DJs on Friday &amp; Saturday</p>
-    <p>Total daily performance hours: 10 hours</p>
+    {c['hours']}
   </section>
 
   {sec("Duties and Responsibilities", "The Entertainer will ensure that particular attention is given to building up the atmosphere each night in accordance with the audience type. Music must be played in continuous mode during each set of performance. An appropriate level of energy is expected at all times.")}
@@ -133,6 +147,11 @@ HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></
     </div>
   </div>
 </body></html>"""
+    open(f"{OUT}/{c['file']}.html","w").write(HTML)
+    print(f"built {venue} contract -> {c['file']}.html")
 
-open(f"{OUT}/Bright-Ears-Entertainment-Agreement-Aug2026-Jan2027.html","w").write(HTML)
-print("built contract:", TERM)
+if __name__=="__main__":
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--venue", choices=["ldk","nobu","both"], default="both")
+    a=ap.parse_args()
+    build(a.venue)
