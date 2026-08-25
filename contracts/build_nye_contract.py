@@ -2,9 +2,10 @@
 """NOBU + LDK — New Year's Eve 2026 Special-Event Entertainment Agreement.
 Modeled verbatim on the regular NOBU/LDK agreement (build_contract.py); this is the
 separate NYE special-event contract the regular agreement refers to. 4 DJs on standby,
-NAMES DELIBERATELY OMITTED (Norbert 2026-08-20 msg 5369 — Vita dropped, Riot Huntt not yet
-confirmed; contract says "four (4) DJs" generically). Rate 55,000/night ex-VAT per the
-approved quote QT-NOBULDK-NYE-2026. On-brand (logo + cyan)."""
+NAMED (Norbert 2026-08-25 msg 5501 — confirmed 4 DJs: Joyyly, Zara Gift, Funktastic,
+Riot Huntt; both venues NOBU+LDK). Rate 55,000/night ex-VAT per the approved quote
+QT-NOBULDK-NYE-2026. Payment terms: 20% deposit on signing / 80% balance after event
+(Norbert 5499/5501 — uniform 20% downpayment for all DJs). On-brand (logo + cyan)."""
 import json, base64
 OUT="/home/brightears/nobu/contracts"
 fonts=json.load(open("/home/brightears/BrightEars-Ops/data/brand/inter-fonts-base64.json"))
@@ -57,6 +58,10 @@ def sec(h, *paras, cls=""):
     body="".join(f"<p>{x}</p>" for x in paras)
     return f'<section class="{cls}"><h2>{h}</h2>{body}</section>'
 
+# ---- DJ line-up (Norbert-confirmed 2026-08-25 msg 5501) ----
+DJ_NAMES=["Joyyly","Zara Gift","Funktastic","Riot Huntt"]
+DJ_LIST="Joyyly, Zara Gift, Funktastic and Riot Huntt"
+
 # ---- Fee figures (4 DJs @ 55,000 standby) — asserted ----
 DJS=4; RATE=55000
 SUB=DJS*RATE                    # 220,000
@@ -66,12 +71,22 @@ WHT=round(SUB*0.03)             # 6,600
 NET=GRAND-WHT                   # 228,800
 assert (SUB,VAT,GRAND,WHT,NET)==(220000,15400,235400,6600,228800), (SUB,VAT,GRAND,WHT,NET)
 
+# ---- 20% deposit / 80% balance split (Norbert 5499/5501) — asserted ----
+DEP_GRAND=round(GRAND*0.20)     # 47,080
+BAL_GRAND=GRAND-DEP_GRAND       # 188,320
+DEP_WHT=round(WHT*0.20)         # 1,320
+BAL_WHT=WHT-DEP_WHT             # 5,280
+DEP_NET=DEP_GRAND-DEP_WHT       # 45,760
+BAL_NET=BAL_GRAND-BAL_WHT       # 183,040
+assert (DEP_GRAND,BAL_GRAND)==(47080,188320), (DEP_GRAND,BAL_GRAND)
+assert DEP_NET+BAL_NET==NET, (DEP_NET,BAL_NET,NET)
+
 def thb(n): return f"{n:,.2f}"
 
 fee_box=f"""
 <div class="feebox">
   <div class="fl"><div class="d">DJ Performance (standby) &mdash; four (4) DJs
-      <small>&mdash; New Year&rsquo;s Eve, 31 December 2026 &middot; NOBU Bangkok &amp; Le Du Kaan &middot; on standby all night</small></div>
+      <small>&mdash; {DJ_LIST} &middot; New Year&rsquo;s Eve, 31 December 2026 &middot; NOBU Bangkok &amp; Le Du Kaan &middot; on standby all night</small></div>
     <div class="n">4 &times; THB 55,000 / night = <b>THB {thb(SUB)}</b></div></div>
   <div class="tot"><div class="d">Sub Total</div><div class="n">THB {thb(SUB)}</div></div>
   <div class="tot"><div class="d">VAT 7%</div><div class="n">THB {thb(VAT)}</div></div>
@@ -80,6 +95,17 @@ fee_box=f"""
   <div class="tot grand"><div class="d b">Net Payable</div><div class="n"><b>THB {thb(NET)}</b></div></div>
 </div>
 <p style="text-align:center;color:{MUTED};font-size:9.5px;margin-top:2px">TWO HUNDRED TWENTY-EIGHT THOUSAND EIGHT HUNDRED BAHT</p>"""
+
+pay_box=f"""
+<div class="feebox">
+  <div class="fl"><div class="d">Deposit &mdash; 20% on signing <small>&mdash; secures the engagement &amp; the DJs&rsquo; reservation for the date</small></div>
+    <div class="n"><b>THB {thb(DEP_GRAND)}</b> <small>incl. VAT</small></div></div>
+  <div class="fl"><div class="d">Balance &mdash; 80% after the event <small>&mdash; due upon the Agency&rsquo;s final invoice</small></div>
+    <div class="n"><b>THB {thb(BAL_GRAND)}</b> <small>incl. VAT</small></div></div>
+  <div class="tot grand"><div class="d b">Grand Total (incl. VAT)</div><div class="n"><b>THB {thb(GRAND)}</b></div></div>
+  <div class="tot"><div class="d">Less Withholding Tax 3% (deducted at source across both instalments)</div><div class="n">&minus; THB {thb(WHT)}</div></div>
+  <div class="tot grand"><div class="d b">Net Payable</div><div class="n"><b>THB {thb(NET)}</b></div></div>
+</div>"""
 
 HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>
   <div class="hdr"><img src="data:image/png;base64,{LOGO}" alt="Bright Ears"/>
@@ -91,12 +117,12 @@ HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></
 
   <p>This agreement is made between <span class="b">TCC Hotel Collection Co., Ltd.</span>, located at 1 Empire Tower G, 53, 56, 57, 58 Floor, South Sathorn Road, Yannawa, Sathorn, Bangkok 10120, Thailand (TEL: 024071645, TAX ID: 0105546025131, Branch 00015), hereinafter referred to as the &ldquo;Venue&rdquo; and <span class="b">Bright Ears Co., Ltd.</span>, with its Head Office at Garden Home Village, Phaholyothin Road, Amphur Kookot, Lum Luk Ka District, Pathum Thani, Thailand (TEL: 0856644142, TAX ID: 0105550096659), hereinafter referred to as the &ldquo;Agency.&rdquo;</p>
 
-  {sec("Performance Details", "The Venue hereby engages the Agency to provide entertainment services for its New Year&rsquo;s Eve programme at NOBU Bangkok and Le Du Kaan. The Agency&rsquo;s entertainers agree to perform as DJs on the night of 31 December 2026.")}
+  {sec("Performance Details", f"The Venue hereby engages the Agency to provide entertainment services for its New Year&rsquo;s Eve programme at NOBU Bangkok and Le Du Kaan. The Agency&rsquo;s entertainers &mdash; {DJ_LIST} &mdash; agree to perform as DJs on the night of 31 December 2026.")}
 
   {sec("Working Schedule", "The working schedule for the event shall be mutually agreed upon between the Agency and the Venue. Any changes to the standby or performance arrangements must be communicated at least 48 hours in advance unless otherwise agreed by both parties.")}
 
   <section class="hours"><h2>Hours of Work</h2>
-    <p>This engagement covers the New Year&rsquo;s Eve programme on <span class="b">31 December 2026</span>. <span class="b">Four (4) DJs</span> shall be on standby for the full night across NOBU Bangkok and Le Du Kaan, performing as directed by the Venue to maintain the energy of the evening throughout.</p>
+    <p>This engagement covers the New Year&rsquo;s Eve programme on <span class="b">31 December 2026</span>. <span class="b">Four (4) DJs &mdash; {DJ_LIST}</span> &mdash; shall be on standby for the full night across NOBU Bangkok and Le Du Kaan, performing as directed by the Venue to maintain the energy of the evening throughout.</p>
   </section>
 
   {sec("Duties and Responsibilities", "The Entertainer will ensure that particular attention is given to building up the atmosphere throughout the night in accordance with the audience type. Music must be played in continuous mode during each set of performance. An appropriate level of energy is expected at all times.")}
@@ -107,7 +133,12 @@ HTML=f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{CSS}</style></
     <p>The Venue agrees to pay the Agency the following for the New Year&rsquo;s Eve engagement:</p>
     {fee_box}
     <p>Rates are exclusive of VAT; 7% VAT is added and 3% withholding tax is deducted at source, giving the Net Payable shown above.</p>
-    <p>Payment will be made via direct bank transfer to the Agency&rsquo;s account following the event, upon receipt of the Agency&rsquo;s invoice.</p>
+  </section>
+
+  <section class="fee"><h2>Payment Terms</h2>
+    <p>The fee shall be paid in two instalments by direct bank transfer to the Agency&rsquo;s account:</p>
+    {pay_box}
+    <p>A <span class="b">20% deposit (THB {thb(DEP_GRAND)}, inclusive of VAT)</span> is due upon signing of this Agreement to confirm the engagement and reserve the DJs for the date. The remaining <span class="b">80% balance (THB {thb(BAL_GRAND)}, inclusive of VAT)</span> is due after the event, upon receipt of the Agency&rsquo;s final invoice. Withholding tax of 3% (THB {thb(WHT)} in total) is deducted at source across the instalments, giving a net total payable of <span class="b">THB {thb(NET)}</span>.</p>
   </section>
 
   <section><h2>Bank Information</h2>
