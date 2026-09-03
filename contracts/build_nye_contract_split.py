@@ -112,7 +112,7 @@ def build(key, venue_name, dj_list):
       <h1>ENTERTAINMENT AGREEMENT</h1>
       <div class="date">Special Event &mdash; New Year&rsquo;s Eve, 31 December 2026 &middot; {venue_name}</div>
 
-      <p>This agreement is made between <span class="b">TCC Hotel Collection Co., Ltd.</span>, located at 1 Empire Tower G, 53, 56, 57, 58 Floor, South Sathorn Road, Yannawa, Sathorn, Bangkok 10120, Thailand (TEL: 024071645, TAX ID: 0105546025131, Branch 00015), hereinafter referred to as the &ldquo;Venue&rdquo; and <span class="b">Bright Ears Co., Ltd.</span>, with its Head Office at Garden Home Village, Phaholyothin Road, Amphur Kookot, Lum Luk Ka District, Pathum Thani, Thailand (TEL: 0856644142, TAX ID: 0105550096659), hereinafter referred to as the &ldquo;Agency.&rdquo;</p>
+      <p>This agreement is made between <span class="b">TCC Hotel Collection Co., Ltd. (Branch 00015)</span>, located at 1 Empire Tower G, 53, 56, 57, 58 Floor, South Sathorn Road, Yannawa, Sathorn, Bangkok 10120, Thailand (TEL: 024071645, TAX ID: 0105546025131, Branch 00015), hereinafter referred to as the &ldquo;Venue&rdquo; and <span class="b">Bright Ears Co., Ltd.</span>, with its Head Office at Garden Home Village, Phaholyothin Road, Amphur Kookot, Lum Luk Ka District, Pathum Thani, Thailand (TEL: 0856644142, TAX ID: 0105550096659), hereinafter referred to as the &ldquo;Agency.&rdquo;</p>
 
       {sec("Performance Details", f"The Venue hereby engages the Agency to provide entertainment services for its New Year&rsquo;s Eve programme at {venue_name}. The Agency&rsquo;s entertainers &mdash; {dj_list} &mdash; agree to perform as DJs on the night of 31 December 2026.")}
 
@@ -163,10 +163,10 @@ def build(key, venue_name, dj_list):
           <div class="sigcol"><div class="co">Bright Ears Co., Ltd.</div>
             <div class="sigblk"><div class="sigline"></div><div class="signame">Kullaphat Wittayaphan</div><div class="sigrole">Director</div></div>
           </div>
-          <div class="sigcol"><div class="co">TCC Hotel Collection Co., Ltd.</div>
-            <div class="sigblk"><div class="sigline"></div><div class="signame">Simon Bell</div><div class="sigrole">General Manager</div></div>
+          <div class="sigcol"><div class="co">TCC Hotel Collection Co., Ltd. (Branch 00015)</div>
+            <div class="sigblk"><div class="sigline"></div><div class="signame">Simon Bell</div><div class="sigrole">Cluster General Manager</div></div>
             <div class="sigblk"><div class="sigline"></div><div class="signame">Dan Jamme</div><div class="sigrole">Multi Restaurants General Manager</div></div>
-            <div class="sigblk"><div class="sigline"></div><div class="signame">Rajesh Dewan</div><div class="sigrole">Director of Finance</div></div>
+            <div class="sigblk"><div class="sigline"></div><div class="signame">Thamonwan Chandhradipra</div><div class="sigrole">Cluster Director of Finance</div></div>
           </div>
         </div>
       </div>
